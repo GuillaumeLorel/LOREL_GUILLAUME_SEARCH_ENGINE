@@ -1,0 +1,27 @@
+var NAVTREEINDEX0 =
+{
+"_author_8py.html":[2,0,0,0],
+"_corpus_8py.html":[2,0,0,1],
+"_document_8py.html":[2,0,0,2],
+"annotated.html":[1,0],
+"class_arxiv_document.html":[1,0,0],
+"class_author.html":[1,0,1],
+"class_corpus.html":[1,0,2],
+"class_document.html":[1,0,3],
+"class_reddit_document.html":[1,0,4],
+"classes.html":[1,1],
+"dir_1ae4179d5e953611aae20c997279e02c.html":[2,0,0],
+"files.html":[2,0],
+"hierarchy.html":[1,2],
+"index.html":[],
+"main_8py.html":[2,0,1],
+"namespace_author.html":[0,0,0],
+"namespace_corpus.html":[0,0,1],
+"namespace_corpus.html#aff61e26027cc8d0dfb9a74627b5652bb":[0,0,1,0],
+"namespace_document.html":[0,0,2],
+"namespacemain.html":[0,0,3],
+"namespacemembers.html":[0,1,0],
+"namespacemembers_func.html":[0,1,1],
+"namespaces.html":[0,0],
+"pages.html":[]
+};
