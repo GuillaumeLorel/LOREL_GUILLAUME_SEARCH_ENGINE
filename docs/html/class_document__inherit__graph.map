@@ -1,7 +1,0 @@
-<map id="Document" name="Document">
-<area shape="rect" id="Node000001" title="Classe mère représentant un document générique." alt="" coords="84,5,155,75"/>
-<area shape="rect" id="Node000002" href="$class_arxiv_document.html" title="Classe fille représentant un article Arxiv." alt="" coords="5,123,106,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,86,76,124,72,121,92,90"/>
-<area shape="rect" id="Node000003" href="$class_reddit_document.html" title="Classe fille représentant un post Reddit." alt="" coords="131,123,239,192"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,85,169,123,163,123,145,90"/>
-</map>
