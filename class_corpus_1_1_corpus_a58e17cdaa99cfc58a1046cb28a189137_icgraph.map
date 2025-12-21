@@ -1,0 +1,7 @@
+<map id="Corpus.Corpus._build_full_text" name="Corpus.Corpus._build_full_text">
+<area shape="rect" id="Node000001" title="Construit la chaîne de texte complète du corpus pour les recherches." alt="" coords="220,23,367,65"/>
+<area shape="rect" id="Node000002" href="$class_corpus_1_1_corpus.html#a3d3ab05fc0714b6f4a59f23d0dc2ff3e" title="Génère une concordance pour un motif donné dans le corpus." alt="" coords="5,5,172,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,33,172,32,172,26,206,33"/>
+<area shape="rect" id="Node000003" href="$class_corpus_1_1_corpus.html#ad797b4f6efb0f9446f3e215811d6114d" title="Recherche un mot&#45;clé dans le corpus et retourne les extraits correspondants." alt="" coords="12,56,165,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="201,55,165,63,165,57,207,55"/>
+</map>

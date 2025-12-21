@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Moteur de Recherche - LOREL Guillaume:  Fichier source de v3/models/Corpus.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Moteur de Recherche - LOREL Guillaume<span id="projectnumber">&#160;3.0</span>
+   </div>
+   <div id="projectbrief">Moteur de recherche documentaire (Arxiv/Reddit) avec interface Python.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('_corpus_8py_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Corpus.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_corpus_8py.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespace_corpus.html">    1</a></span><span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="stringliteral"># Corpus.py</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="stringliteral">Module contenant la logique de gestion du corpus de documents.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="stringliteral">**Author:** LOREL Guillaume  </span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="stringliteral">**Version:** 3.0</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">import</span> re</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">from</span> models.Author <span class="keyword">import</span> Author</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="" data-end="">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="namespace_corpus.html#aff61e26027cc8d0dfb9a74627b5652bb">   15</a></span><span class="keyword">def </span><a class="code hl_function" href="namespace_corpus.html#aff61e26027cc8d0dfb9a74627b5652bb">singleton</a>(cls):</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="stringliteral">    Décorateur pour implémenter le patron Singleton.</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="stringliteral">    **Parameters**</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="stringliteral">    - **cls**: La classe à décorer.</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="stringliteral">    **Returns**</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="stringliteral">    - Une fonction wrapper retournant l&#39;instance unique de la classe.</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    instance = [<span class="keywordtype">None</span>]</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">def </span>wrapper(*args, **kwargs):</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">if</span> instance[0] <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            instance[0] = cls(*args, **kwargs)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">return</span> instance[0]</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">return</span> wrapper</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">@singleton</span></div>
+</div>
+<div class="foldopen" id="foldopen00033" data-start="" data-end="">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html">   33</a></span><span class="keyword">class </span><a class="code hl_class" href="class_corpus_1_1_corpus.html">Corpus</a>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral">    # Corpus</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="stringliteral">    Classe principale gérant la collection de documents et d&#39;auteurs.</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="stringliteral">    **Note:** Utilise le pattern Singleton.</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="foldopen" id="foldopen00041" data-start="" data-end="">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#aca0f36011b139acac33d623d44edaadb">   41</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#aca0f36011b139acac33d623d44edaadb">__init__</a>(self, nom=&quot;Corpus par défaut&quot;, documents=None, id_document=0, authors=None):</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="stringliteral">        Constructeur du Corpus.</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="stringliteral">        - **nom**: Nom du corpus.</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="stringliteral">        - **documents**: Dictionnaire initial des documents (optionnel).</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="stringliteral">        - **id_document**: Identifiant initial pour les documents (optionnel).</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="stringliteral">        - **authors**: Dictionnaire initial des auteurs (optionnel).</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a77d860085b2560ba1d4c3b79cd707f73">   51</a></span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a77d860085b2560ba1d4c3b79cd707f73">nom</a> = nom</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">   52</a></span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a> = documents <span class="keywordflow">if</span> documents <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> {}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">   53</a></span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">authors</a> = authors <span class="keywordflow">if</span> authors <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> {}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541">   54</a></span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541">id_document</a> = len(self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>) <span class="keywordflow">if</span> documents <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> id_document</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2">   55</a></span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2">_full_text</a> = <span class="keywordtype">None</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00057" data-start="" data-end="">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a0bbb01bd8a17a15e87b179d56145011b">   57</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a0bbb01bd8a17a15e87b179d56145011b">get_nom</a>(self):</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="stringliteral">        Accesseur pour le nom du corpus.</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="stringliteral">        - Le nom du corpus.</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a77d860085b2560ba1d4c3b79cd707f73">nom</a></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00066" data-start="" data-end="">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#aafae557b9491b92a24fe12976a7c736e">   66</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#aafae557b9491b92a24fe12976a7c736e">get_documents</a>(self):</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="stringliteral">        Accesseur pour les documents.</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">        - Dictionnaire des documents.</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00075" data-start="" data-end="">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#af96319c5ace7906aaf8963161f549c6e">   75</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#af96319c5ace7906aaf8963161f549c6e">get_id_document</a>(self):</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="stringliteral">        Accesseur pour l&#39;identifiant du document.</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="stringliteral">        - L&#39;identifiant actuel pour les documents.</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541">id_document</a></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00084" data-start="" data-end="">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a171a64238f8dfa77034395d97cef7dac">   84</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a171a64238f8dfa77034395d97cef7dac">get_authors</a>(self):</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="stringliteral">        Accesseur pour les auteurs.</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="stringliteral">        - Dictionnaire des auteurs.</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">authors</a></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00093" data-start="" data-end="">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a330243589d080893c45c1ba50f1d2687">   93</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a330243589d080893c45c1ba50f1d2687">add_document</a>(self, document):</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="stringliteral">        Ajoute un Document au corpus et met à jour l&#39;objet Author correspondant.</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="stringliteral">        - **document**: Instance de Document (ou classe fille) à ajouter.</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>[self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541">id_document</a>] = document</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541">id_document</a> += 1</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        author_name = document.get_auteur()</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">if</span> author_name <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">authors</a>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">authors</a>[author_name] = <a class="code hl_class" href="class_author.html">Author</a>(author_name, 0, []) </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">authors</a>[author_name].add(document)</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+</div>
+<div class="foldopen" id="foldopen00110" data-start="" data-end="">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a587e93c0a155e5628862e4fab88710bb">  110</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a587e93c0a155e5628862e4fab88710bb">add_author</a>(self, author):</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="stringliteral">        Ajoute manuellement un auteur au corpus.</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="stringliteral">        - **author**: Instance de Author à ajouter.</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">authors</a>[author.get_nom()] = author</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+</div>
+<div class="foldopen" id="foldopen00119" data-start="" data-end="">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a2224c208981a1cb32aa11f8d1d4bc35d">  119</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a2224c208981a1cb32aa11f8d1d4bc35d">__repr__</a>(self):</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="stringliteral">        Représentation textuelle du corpus.</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="stringliteral">        - Résumé du contenu du corpus.</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        nb_docs = len(self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>)</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        nb_authors = len(self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">authors</a>)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">return</span> (f<span class="stringliteral">&quot;&lt;Corpus(nom=&#39;{self.get_nom()}&#39;, docs={nb_docs}, &quot;</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                f<span class="stringliteral">&quot;auteurs={nb_authors}, id_max={self.id_document - 1 if self.id_document &gt; 0 else -1})&gt;&quot;</span>)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00131" data-start="" data-end="">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#aca7cdac4250a056f7d1bd6cba5eaa45f">  131</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#aca7cdac4250a056f7d1bd6cba5eaa45f">get_sorted_by_date</a>(self, n=10):</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="stringliteral">        Affiche les &#39;n&#39; documents triés par date (récent -&gt; ancien).</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="stringliteral">        - **n**: Nombre de documents à afficher.</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        print(f<span class="stringliteral">&quot;\n--- {n} documents les plus récents de {self.nom} ---&quot;</span>)</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        sorted_docs = sorted(</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>.values(), </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            key=<span class="keyword">lambda</span> doc: doc.get_date(), </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            reverse=<span class="keyword">True</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        )   </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">for</span> i, doc <span class="keywordflow">in</span> enumerate(sorted_docs[:n]):</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            print(f<span class="stringliteral">&quot;[{i + 1}] {doc}&quot;</span>)</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+</div>
+<div class="foldopen" id="foldopen00147" data-start="" data-end="">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a8004ea4b2b428ade610c5cad56e4a557">  147</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a8004ea4b2b428ade610c5cad56e4a557">get_sorted_by_title</a>(self, n=10):</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="stringliteral">        Affiche les &#39;n&#39; documents triés par titre alphabétique.</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="stringliteral">        - **n**: Nombre de documents à afficher.</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        print(f<span class="stringliteral">&quot;\n--- {n} documents triés par titre de {self.nom} ---&quot;</span>)</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        sorted_docs = sorted(</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>.values(), </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            key=<span class="keyword">lambda</span> doc: doc.get_titre().lower()</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        )  </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">for</span> i, doc <span class="keywordflow">in</span> enumerate(sorted_docs[:n]):</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            print(f<span class="stringliteral">&quot;[{i + 1}] {doc}&quot;</span>)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+</div>
+<div class="foldopen" id="foldopen00162" data-start="" data-end="">
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#ae9c5fde11482b7d01afab0dc2c2550fb">  162</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#ae9c5fde11482b7d01afab0dc2c2550fb">save</a>(self, filename=&#39;corpus.csv&#39;):</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="stringliteral">        Enregistre le corpus sur le disque au format CSV.</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="stringliteral">        - **filename**: Nom du fichier de sauvegarde.</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        path = f<span class="stringliteral">&#39;./v3/data/{filename}&#39;</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        print(f<span class="stringliteral">&quot;\n-&gt; Sauvegarde du corpus dans {path}...&quot;</span>)</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        doc_objects = list(self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>.values())</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        df = pd.DataFrame({</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            <span class="stringliteral">&#39;id&#39;</span>: range(len(doc_objects)),</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            <span class="stringliteral">&#39;titre&#39;</span>: [d.get_titre() <span class="keywordflow">for</span> d <span class="keywordflow">in</span> doc_objects],</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            <span class="stringliteral">&#39;auteur&#39;</span>: [d.get_auteur() <span class="keywordflow">for</span> d <span class="keywordflow">in</span> doc_objects],</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <span class="stringliteral">&#39;date&#39;</span>: [d.get_date() <span class="keywordflow">for</span> d <span class="keywordflow">in</span> doc_objects],</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <span class="stringliteral">&#39;url&#39;</span>: [d.get_url() <span class="keywordflow">for</span> d <span class="keywordflow">in</span> doc_objects],</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <span class="stringliteral">&#39;texte&#39;</span>: [d.get_texte() <span class="keywordflow">for</span> d <span class="keywordflow">in</span> doc_objects],</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            <span class="stringliteral">&#39;type&#39;</span>: [d.getType() <span class="keywordflow">for</span> d <span class="keywordflow">in</span> doc_objects],</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            <span class="stringliteral">&#39;nb_comments&#39;</span>: [getattr(d, <span class="stringliteral">&#39;nb_comments&#39;</span>, 0) <span class="keywordflow">for</span> d <span class="keywordflow">in</span> doc_objects],</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="stringliteral">&#39;co_auteurs&#39;</span>: [str(getattr(d, <span class="stringliteral">&#39;co_auteurs&#39;</span>, [])) <span class="keywordflow">for</span> d <span class="keywordflow">in</span> doc_objects] </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        })</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        df.to_csv(path, sep=<span class="stringliteral">&#39;\t&#39;</span>, index=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        print(<span class="stringliteral">&quot;Sauvegarde terminée.&quot;</span>)</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+</div>
+<div class="foldopen" id="foldopen00189" data-start="" data-end="">
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#aea285d5211a520e6be9cc3e9e316d9bf">  189</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#aea285d5211a520e6be9cc3e9e316d9bf">load</a>(self, filename=&#39;corpus.csv&#39;, nom=&quot;Corpus Chargé&quot;):</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="stringliteral">        Charge un corpus depuis un fichier CSV.</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="stringliteral">        - **filename**: Nom du fichier à charger.</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="stringliteral">        - **nom**: Nouveau nom pour le corpus chargé.</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        path = f<span class="stringliteral">&#39;./v3/data/{filename}&#39;</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        print(f<span class="stringliteral">&quot;\n-&gt; Chargement du corpus depuis {path}...&quot;</span>)</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            df = pd.read_csv(path, sep=<span class="stringliteral">&#39;\t&#39;</span>)</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">except</span> FileNotFoundError:</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            print(<span class="stringliteral">&quot;Erreur : Fichier non trouvé.&quot;</span>)</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            <span class="keywordflow">return</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a77d860085b2560ba1d4c3b79cd707f73">nom</a> = nom</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a> = {}</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">authors</a> = {}</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541">id_document</a> = 0</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#af661c460bf7806bb71e5785d176d51e3">  211</a></span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#af661c460bf7806bb71e5785d176d51e3">df_data</a> = df</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        print(f<span class="stringliteral">&quot;Chargement terminé. {len(self.df_data)} lignes de données chargées.&quot;</span>)</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00215" data-start="" data-end="">
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a37766967f6562b1142f7f1eaed220b1c">  215</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a37766967f6562b1142f7f1eaed220b1c">display_types</a>(self, n=10):</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="stringliteral">        Affiche les types des &#39;n&#39; premiers documents du corpus.</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="stringliteral">        - **n**: Nombre de documents à afficher.</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        print(f<span class="stringliteral">&quot;\n--- Types des documents dans le corpus &#39;{self.nom}&#39; ---&quot;</span>)</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="comment"># Affiche seulement les n premiers pour éviter de polluer la console</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        <span class="keywordflow">for</span> doc_id, doc <span class="keywordflow">in</span> list(self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>.items())[:n]:</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            print(f<span class="stringliteral">&quot;ID {doc_id}: Type = {doc.getType()}&quot;</span>)</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+</div>
+<div class="foldopen" id="foldopen00227" data-start="" data-end="">
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#ad797b4f6efb0f9446f3e215811d6114d">  227</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#ad797b4f6efb0f9446f3e215811d6114d">search</a>(self, keyword):</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="stringliteral">        Recherche un mot-clé dans le corpus et retourne les extraits correspondants.</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="stringliteral">        - **keyword**: Mot-clé à rechercher.</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="stringliteral">        - Liste des extraits contenant le mot-clé.</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordflow">if</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2">_full_text</a> <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            self.<a class="code hl_function" href="class_corpus_1_1_corpus.html#a58e17cdaa99cfc58a1046cb28a189137">_build_full_text</a>()</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        pattern = re.compile(<span class="stringliteral">r&quot;.{0,40}\b&quot;</span> + re.escape(keyword) + <span class="stringliteral">r&quot;\b.{0,40}&quot;</span>, re.IGNORECASE)</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">return</span> pattern.findall(self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2">_full_text</a>)</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00242" data-start="" data-end="">
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a58e17cdaa99cfc58a1046cb28a189137">  242</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a58e17cdaa99cfc58a1046cb28a189137">_build_full_text</a>(self):</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="stringliteral">        Construit la chaîne de texte complète du corpus pour les recherches.</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2">_full_text</a> = <span class="stringliteral">&quot; &quot;</span>.join(doc.get_texte() <span class="keywordflow">for</span> doc <span class="keywordflow">in</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>.values())</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+</div>
+<div class="foldopen" id="foldopen00248" data-start="" data-end="">
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a3d3ab05fc0714b6f4a59f23d0dc2ff3e">  248</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a3d3ab05fc0714b6f4a59f23d0dc2ff3e">concorde</a>(self, pattern, context_size=30):</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="stringliteral">        Génère une concordance pour un motif donné dans le corpus.</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="stringliteral">        - **pattern**: Motif (expression régulière) à rechercher.</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="stringliteral">        - **context_size**: Taille du contexte à extraire autour du motif.</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="stringliteral">        - DataFrame avec colonnes &quot;contexte gauche&quot;, &quot;motif trouvé&quot;, &quot;contexte droit&quot;.</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">if</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2">_full_text</a> <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            self.<a class="code hl_function" href="class_corpus_1_1_corpus.html#a58e17cdaa99cfc58a1046cb28a189137">_build_full_text</a>()</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        text = self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2">_full_text</a></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        matches = re.finditer(pattern, text, re.IGNORECASE)</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        results = []</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">for</span> match <span class="keywordflow">in</span> matches:</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            start_index = match.start()</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            end_index = match.end()</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>            motif = match.group()</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            <span class="comment"># Extraire le contexte gauche</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            <span class="comment"># Début du contexte = max(0, start_index - taille du contexte)</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>            context_gauche_start = max(0, start_index - context_size)</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            context_gauche = text[context_gauche_start:start_index].strip()</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            </div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>            <span class="comment"># Extraire le contexte droit</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            <span class="comment"># Fin du contexte = min(longueur totale, end_index + taille du contexte)</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            context_droit_end = min(len(text), end_index + context_size)</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            context_droit = text[end_index:context_droit_end].strip()</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            results.append({</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>                <span class="stringliteral">&quot;contexte gauche&quot;</span>: context_gauche,</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>                <span class="stringliteral">&quot;motif trouvé&quot;</span>: motif,</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>                <span class="stringliteral">&quot;contexte droit&quot;</span>: context_droit</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            })</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> results:</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>            print(f<span class="stringliteral">&quot;Aucune occurrence du motif &#39;{pattern}&#39; trouvée.&quot;</span>)</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            <span class="keywordflow">return</span> pd.DataFrame(columns=[<span class="stringliteral">&quot;contexte gauche&quot;</span>, <span class="stringliteral">&quot;motif trouvé&quot;</span>, <span class="stringliteral">&quot;contexte droit&quot;</span>])</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            </div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        concordancier = pd.DataFrame(results)</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        <span class="keywordflow">return</span> concordancier</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00295" data-start="" data-end="">
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#a3bda1c666c11287bd7b8a0313ca02448">  295</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#a3bda1c666c11287bd7b8a0313ca02448">nettoyer_texte</a>(self, text):</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="stringliteral">        Nettoie le texte en appliquant plusieurs transformations.</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="stringliteral">        - **text**: Texte brut à nettoyer.</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="stringliteral">        - Texte nettoyé (minuscules, caractères non alphabétiques retirés, espaces normalisés).</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        text = text.lower()</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        </div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        text = text.replace(<span class="stringliteral">&#39;\n&#39;</span>, <span class="stringliteral">&#39; &#39;</span>)</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        </div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <span class="comment"># [^a-z] signifie &quot;tout ce qui n&#39;est pas une lettre minuscule&quot;</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        text = re.sub(<span class="stringliteral">r&#39;[^a-z\s]+&#39;</span>, <span class="stringliteral">&#39; &#39;</span>, text)</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        <span class="comment"># Remplacement des espaces multiples par un seul espace</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        text = re.sub(<span class="stringliteral">r&#39;\s+&#39;</span>, <span class="stringliteral">&#39; &#39;</span>, text).strip()</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        <span class="keywordflow">return</span> text</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00317" data-start="" data-end="">
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno"><a class="line" href="class_corpus_1_1_corpus.html#afe8a1f59a899d760c26f1bb167bfd25a">  317</a></span>    <span class="keyword">def </span><a class="code hl_function" href="class_corpus_1_1_corpus.html#afe8a1f59a899d760c26f1bb167bfd25a">stats</a>(self, n=10):</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="stringliteral">        Calcule et affiche des statistiques globales et textuelles du corpus.</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="stringliteral">        **Parameters**</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="stringliteral">        - **n**: Nombre de mots les plus fréquents à afficher.</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="stringliteral">        **Returns**</span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="stringliteral">        - DataFrame trié par fréquence décroissante (TF).</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        print(f<span class="stringliteral">&quot;\n--- Statistiques du corpus &#39;{self.nom}&#39; ---&quot;</span>)</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        print(f<span class="stringliteral">&quot;Nombre de documents: {len(self.documents)}&quot;</span>)</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        print(f<span class="stringliteral">&quot;Nombre d&#39;auteurs: {len(self.authors)}&quot;</span>)</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        print(<span class="stringliteral">&quot;\nStats textuelles :&quot;</span>)</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        </div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        <span class="comment"># Dictionnaire pour stocker les occurrences globales (Term Frequency)</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        word_counts = {} </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <span class="comment"># Dictionnaire pour stocker les documents contenant chaque mot (Document Frequency)</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        doc_word_set = {}</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        all_words = []</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span> </div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <span class="keywordflow">for</span> doc <span class="keywordflow">in</span> self.<a class="code hl_variable" href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">documents</a>.values():</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>            text_nettoye = self.<a class="code hl_function" href="class_corpus_1_1_corpus.html#a3bda1c666c11287bd7b8a0313ca02448">nettoyer_texte</a>(doc.get_texte())</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>            </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>            mots_du_doc = text_nettoye.split(<span class="stringliteral">&#39; &#39;</span>)</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>            </div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>            mots_uniques_du_doc = set(mots_du_doc)</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>            </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>            <span class="keywordflow">for</span> mot <span class="keywordflow">in</span> mots_uniques_du_doc:</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>                <span class="keywordflow">if</span> mot:</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>                    doc_word_set[mot] = doc_word_set.get(mot, 0) + 1</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>            </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>            <span class="comment"># Ajout des mots pour le calcul de la fréquence totale (TF)</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>            all_words.extend(mots_du_doc)</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        <span class="comment"># Utilisation d&#39;un dictionnaire pour compter la fréquence (plus rapide que boucler à la main)</span></div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>        word_counts = Counter([word <span class="keywordflow">for</span> word <span class="keywordflow">in</span> all_words <span class="keywordflow">if</span> word])</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        df_freq = pd.DataFrame(word_counts.items(), columns=[<span class="stringliteral">&#39;Mot&#39;</span>, <span class="stringliteral">&#39;Term Frequency (TF)&#39;</span>])</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        df_freq[<span class="stringliteral">&#39;Document Frequency (DF)&#39;</span>] = df_freq[<span class="stringliteral">&#39;Mot&#39;</span>].apply(<span class="keyword">lambda</span> mot: doc_word_set.get(mot, 0))</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        </div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        print(f<span class="stringliteral">&quot;1. Nombre de mots différents dans le corpus (Vocabulaire): {len(word_counts)} mots.&quot;</span>) </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        print(f<span class="stringliteral">&quot;\n2. {n} mots les plus fréquents (Term Frequency, TF) :&quot;</span>)</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        </div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <span class="comment"># Tri par Term Frequency et affichage des n premiers</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        df_freq_sorted = df_freq.sort_values(by=<span class="stringliteral">&#39;Term Frequency (TF)&#39;</span>, ascending=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        </div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        print(df_freq_sorted.head(n))</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        </div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        <span class="keywordflow">return</span> df_freq_sorted</div>
+</div>
+</div>
+<div class="ttc" id="aclass_author_html"><div class="ttname"><a href="class_author.html">Author</a></div><div class="ttdoc">Classe représentant un auteur et sa production de documents.</div><div class="ttdef"><b>Definition</b> <a href="_author_8py_source.html#l00010">Author.py:8</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html"><div class="ttname"><a href="class_corpus_1_1_corpus.html">Corpus.Corpus</a></div><div class="ttdef"><b>Definition</b> <a href="#l00033">Corpus.py:33</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a030b33a659cf081dbe4c6a540bc82ce2"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2">Corpus.Corpus._full_text</a></div><div class="ttdeci">str _full_text</div><div class="ttdef"><b>Definition</b> <a href="#l00055">Corpus.py:55</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a0bbb01bd8a17a15e87b179d56145011b"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a0bbb01bd8a17a15e87b179d56145011b">Corpus.Corpus.get_nom</a></div><div class="ttdeci">get_nom(self)</div><div class="ttdoc">Accesseur pour le nom du corpus.</div><div class="ttdef"><b>Definition</b> <a href="#l00057">Corpus.py:57</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a171a64238f8dfa77034395d97cef7dac"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a171a64238f8dfa77034395d97cef7dac">Corpus.Corpus.get_authors</a></div><div class="ttdeci">get_authors(self)</div><div class="ttdoc">Accesseur pour les auteurs.</div><div class="ttdef"><b>Definition</b> <a href="#l00084">Corpus.py:84</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a2224c208981a1cb32aa11f8d1d4bc35d"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a2224c208981a1cb32aa11f8d1d4bc35d">Corpus.Corpus.__repr__</a></div><div class="ttdeci">__repr__(self)</div><div class="ttdoc">Représentation textuelle du corpus.</div><div class="ttdef"><b>Definition</b> <a href="#l00119">Corpus.py:119</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a330243589d080893c45c1ba50f1d2687"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a330243589d080893c45c1ba50f1d2687">Corpus.Corpus.add_document</a></div><div class="ttdeci">add_document(self, document)</div><div class="ttdoc">Ajoute un Document au corpus et met à jour l&#39;objet Author correspondant.</div><div class="ttdef"><b>Definition</b> <a href="#l00093">Corpus.py:93</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a37766967f6562b1142f7f1eaed220b1c"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a37766967f6562b1142f7f1eaed220b1c">Corpus.Corpus.display_types</a></div><div class="ttdeci">display_types(self, n=10)</div><div class="ttdoc">Affiche les types des &#39;n&#39; premiers documents du corpus.</div><div class="ttdef"><b>Definition</b> <a href="#l00215">Corpus.py:215</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a3bda1c666c11287bd7b8a0313ca02448"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a3bda1c666c11287bd7b8a0313ca02448">Corpus.Corpus.nettoyer_texte</a></div><div class="ttdeci">nettoyer_texte(self, text)</div><div class="ttdoc">Nettoie le texte en appliquant plusieurs transformations.</div><div class="ttdef"><b>Definition</b> <a href="#l00295">Corpus.py:295</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a3d3ab05fc0714b6f4a59f23d0dc2ff3e"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a3d3ab05fc0714b6f4a59f23d0dc2ff3e">Corpus.Corpus.concorde</a></div><div class="ttdeci">concorde(self, pattern, context_size=30)</div><div class="ttdoc">Génère une concordance pour un motif donné dans le corpus.</div><div class="ttdef"><b>Definition</b> <a href="#l00248">Corpus.py:248</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a587e93c0a155e5628862e4fab88710bb"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a587e93c0a155e5628862e4fab88710bb">Corpus.Corpus.add_author</a></div><div class="ttdeci">add_author(self, author)</div><div class="ttdoc">Ajoute manuellement un auteur au corpus.</div><div class="ttdef"><b>Definition</b> <a href="#l00110">Corpus.py:110</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a58e17cdaa99cfc58a1046cb28a189137"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a58e17cdaa99cfc58a1046cb28a189137">Corpus.Corpus._build_full_text</a></div><div class="ttdeci">_build_full_text(self)</div><div class="ttdoc">Construit la chaîne de texte complète du corpus pour les recherches.</div><div class="ttdef"><b>Definition</b> <a href="#l00242">Corpus.py:242</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a77d860085b2560ba1d4c3b79cd707f73"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a77d860085b2560ba1d4c3b79cd707f73">Corpus.Corpus.nom</a></div><div class="ttdeci">nom</div><div class="ttdef"><b>Definition</b> <a href="#l00051">Corpus.py:51</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_a8004ea4b2b428ade610c5cad56e4a557"><div class="ttname"><a href="class_corpus_1_1_corpus.html#a8004ea4b2b428ade610c5cad56e4a557">Corpus.Corpus.get_sorted_by_title</a></div><div class="ttdeci">get_sorted_by_title(self, n=10)</div><div class="ttdoc">Affiche les &#39;n&#39; documents triés par titre alphabétique.</div><div class="ttdef"><b>Definition</b> <a href="#l00147">Corpus.py:147</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_aafae557b9491b92a24fe12976a7c736e"><div class="ttname"><a href="class_corpus_1_1_corpus.html#aafae557b9491b92a24fe12976a7c736e">Corpus.Corpus.get_documents</a></div><div class="ttdeci">get_documents(self)</div><div class="ttdoc">Accesseur pour les documents.</div><div class="ttdef"><b>Definition</b> <a href="#l00066">Corpus.py:66</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_ab9d40057964f72e7742929808e4ec38e"><div class="ttname"><a href="class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e">Corpus.Corpus.documents</a></div><div class="ttdeci">dict documents</div><div class="ttdef"><b>Definition</b> <a href="#l00052">Corpus.py:52</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_aca0f36011b139acac33d623d44edaadb"><div class="ttname"><a href="class_corpus_1_1_corpus.html#aca0f36011b139acac33d623d44edaadb">Corpus.Corpus.__init__</a></div><div class="ttdeci">__init__(self, nom=&quot;Corpus par défaut&quot;, documents=None, id_document=0, authors=None)</div><div class="ttdoc">Constructeur du Corpus.</div><div class="ttdef"><b>Definition</b> <a href="#l00041">Corpus.py:41</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_aca7cdac4250a056f7d1bd6cba5eaa45f"><div class="ttname"><a href="class_corpus_1_1_corpus.html#aca7cdac4250a056f7d1bd6cba5eaa45f">Corpus.Corpus.get_sorted_by_date</a></div><div class="ttdeci">get_sorted_by_date(self, n=10)</div><div class="ttdoc">Affiche les &#39;n&#39; documents triés par date (récent -&gt; ancien).</div><div class="ttdef"><b>Definition</b> <a href="#l00131">Corpus.py:131</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_ad10a4c70f9117783702c330961466541"><div class="ttname"><a href="class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541">Corpus.Corpus.id_document</a></div><div class="ttdeci">int id_document</div><div class="ttdef"><b>Definition</b> <a href="#l00054">Corpus.py:54</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_ad797b4f6efb0f9446f3e215811d6114d"><div class="ttname"><a href="class_corpus_1_1_corpus.html#ad797b4f6efb0f9446f3e215811d6114d">Corpus.Corpus.search</a></div><div class="ttdeci">search(self, keyword)</div><div class="ttdoc">Recherche un mot-clé dans le corpus et retourne les extraits correspondants.</div><div class="ttdef"><b>Definition</b> <a href="#l00227">Corpus.py:227</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_ae5109291d50f9b170e2107b3ac5a4504"><div class="ttname"><a href="class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504">Corpus.Corpus.authors</a></div><div class="ttdeci">dict authors</div><div class="ttdef"><b>Definition</b> <a href="#l00053">Corpus.py:53</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_ae9c5fde11482b7d01afab0dc2c2550fb"><div class="ttname"><a href="class_corpus_1_1_corpus.html#ae9c5fde11482b7d01afab0dc2c2550fb">Corpus.Corpus.save</a></div><div class="ttdeci">save(self, filename=&#39;corpus.csv&#39;)</div><div class="ttdoc">Enregistre le corpus sur le disque au format CSV.</div><div class="ttdef"><b>Definition</b> <a href="#l00162">Corpus.py:162</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_aea285d5211a520e6be9cc3e9e316d9bf"><div class="ttname"><a href="class_corpus_1_1_corpus.html#aea285d5211a520e6be9cc3e9e316d9bf">Corpus.Corpus.load</a></div><div class="ttdeci">load(self, filename=&#39;corpus.csv&#39;, nom=&quot;Corpus Chargé&quot;)</div><div class="ttdoc">Charge un corpus depuis un fichier CSV.</div><div class="ttdef"><b>Definition</b> <a href="#l00189">Corpus.py:189</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_af661c460bf7806bb71e5785d176d51e3"><div class="ttname"><a href="class_corpus_1_1_corpus.html#af661c460bf7806bb71e5785d176d51e3">Corpus.Corpus.df_data</a></div><div class="ttdeci">df_data</div><div class="ttdef"><b>Definition</b> <a href="#l00211">Corpus.py:211</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_af96319c5ace7906aaf8963161f549c6e"><div class="ttname"><a href="class_corpus_1_1_corpus.html#af96319c5ace7906aaf8963161f549c6e">Corpus.Corpus.get_id_document</a></div><div class="ttdeci">get_id_document(self)</div><div class="ttdoc">Accesseur pour l&#39;identifiant du document.</div><div class="ttdef"><b>Definition</b> <a href="#l00075">Corpus.py:75</a></div></div>
+<div class="ttc" id="aclass_corpus_1_1_corpus_html_afe8a1f59a899d760c26f1bb167bfd25a"><div class="ttname"><a href="class_corpus_1_1_corpus.html#afe8a1f59a899d760c26f1bb167bfd25a">Corpus.Corpus.stats</a></div><div class="ttdeci">stats(self, n=10)</div><div class="ttdoc">Calcule et affiche des statistiques globales et textuelles du corpus.</div><div class="ttdef"><b>Definition</b> <a href="#l00317">Corpus.py:317</a></div></div>
+<div class="ttc" id="anamespace_corpus_html_aff61e26027cc8d0dfb9a74627b5652bb"><div class="ttname"><a href="namespace_corpus.html#aff61e26027cc8d0dfb9a74627b5652bb">Corpus.singleton</a></div><div class="ttdeci">singleton(cls)</div><div class="ttdoc">Décorateur pour implémenter le patron Singleton.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">Corpus.py:15</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_f8bd10e8819a72a26e171dfb7c6ae427.html">v3</a></li><li class="navelem"><a href="dir_f3ea52c58c0ccf743e30bcabcffcc8e4.html">models</a></li><li class="navelem"><a href="_corpus_8py.html">Corpus.py</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
+  </ul>
+</div>
+</body>
+</html>

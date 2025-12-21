@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Moteur de Recherche - LOREL Guillaume: Moteur de Recherche Python</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Moteur de Recherche - LOREL Guillaume<span id="projectnumber">&#160;3.0</span>
+   </div>
+   <div id="projectbrief">Moteur de recherche documentaire (Arxiv/Reddit) avec interface Python.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('index.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">Moteur de Recherche Python </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="md__r_e_a_d_m_e"></a></p>
+<p>Projet académique d'implémentation d'un moteur de recherche en Python pour le cours de Programmation de Spécialité (UE53) à l'Université Lyon 2.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+📋 Description du Projet</h1>
+<p>Ce projet développe progressivement un moteur de recherche capable de :</p>
+<ul>
+<li>Indexer et rechercher des documents</li>
+<li>Gérer plusieurs sources de données (arXiv, Reddit, etc.)</li>
+<li>Optimiser les performances à travers les versions</li>
+<li>Fournir une interface interactive avec Jupyter</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+📂 Structure du Projet</h1>
+<div class="fragment"><div class="line">├── v1/              # Version 1 : Implémentation initiale</div>
+<div class="line">├── v2/              # Version 2 : Améliorations et optimisations</div>
+<div class="line">├── v3/              # Version 3 : Intégration Jupyter</div>
+<div class="line">├── docs/            # Documentation Doxygen</div>
+<div class="line">├── Doxyfile         # Configuration Doxygen</div>
+<div class="line">├── README.md        # Ce fichier</div>
+<div class="line">└── .gitignore       # Configuration Git</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+Versions</h2>
+<p><b>V1 - Implémentation Basique</b></p>
+<ul>
+<li>Structure de base des classes (<a class="el" href="namespace_document.html">Document</a>, <a class="el" href="namespace_corpus.html">Corpus</a>, <a class="el" href="class_author.html" title="Classe représentant un auteur et sa production de documents.">Author</a>)</li>
+<li>Indexation simple des documents</li>
+<li>Fonctions de recherche élémentaires</li>
+</ul>
+<p><b>V2 - Optimisations</b></p>
+<ul>
+<li>Amélioration des performances</li>
+<li>Optimisation des structures de données</li>
+<li>Meilleure gestion des corpus volumineux</li>
+</ul>
+<p><b>V3 - Interface Interactive</b></p>
+<ul>
+<li>Intégration avec Jupyter Notebook</li>
+<li>Interface interactive pour l'exploration</li>
+<li>Documentation complète du processus</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
+🚀 Démarrage Rapide</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
+Prérequis</h2>
+<ul>
+<li>Python 3.8+</li>
+<li>pip (gestionnaire de paquets)</li>
+<li>Jupyter Notebook (optionnel pour v3)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
+Installation</h2>
+<div class="fragment"><div class="line"># Cloner le projet</div>
+<div class="line">git clone &lt;url-repo&gt;</div>
+<div class="line">cd LOREL_GUILLAUME_SEARCH_ENGINE</div>
+<div class="line"> </div>
+<div class="line"># Installer les dépendances</div>
+<div class="line">pip install -r requirements.txt</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
+Exécution</h2>
+<div class="fragment"><div class="line"># Version 1</div>
+<div class="line">python v1/main.py</div>
+<div class="line"> </div>
+<div class="line"># Version 2</div>
+<div class="line">python v2/main.py</div>
+<div class="line"> </div>
+<div class="line"># Version 3</div>
+<div class="line">jupyter notebook v3/search_engine.ipynb</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+📖 Documentation</h1>
+<p>La documentation API complète est disponible dans le dossier <span class="tt">docs/</span>:</p>
+<ul>
+<li>Générer la documentation : <span class="tt">doxygen Doxyfile</span></li>
+<li>Consulter en ligne : <span class="tt">docs/html/index.html</span></li>
+</ul>
+<p>Les pages GitHub déploient automatiquement la documentation.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+🏗️ Architecture</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+Classes Principales</h2>
+<p><b><a class="el" href="namespace_document.html">Document</a></b></p>
+<ul>
+<li>Classe de base pour les documents</li>
+<li>Attributs : titre, contenu, URL, date</li>
+</ul>
+<p><b><a class="el" href="namespace_corpus.html">Corpus</a></b></p>
+<ul>
+<li>Gère une collection de documents</li>
+<li>Indexation et recherche</li>
+</ul>
+<p><b><a class="el" href="class_author.html" title="Classe représentant un auteur et sa production de documents.">Author</a></b></p>
+<ul>
+<li>Information sur les auteurs</li>
+<li>Gestion des métadonnées</li>
+</ul>
+<p><b>ArxivDocument</b> (V2+)</p>
+<ul>
+<li>Spécialisation pour articles arXiv</li>
+<li>Extraction des métadonnées arXiv</li>
+</ul>
+<p><b>RedditDocument</b> (V2+)</p>
+<ul>
+<li>Spécialisation pour posts Reddit</li>
+<li>Gestion des discussions</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+🔍 Utilisation</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+Exemple Basique</h2>
+<div class="fragment"><div class="line"><span class="keyword">from</span> v1.main <span class="keyword">import</span> Corpus, Document</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># Créer un corpus</span></div>
+<div class="line">corpus = <a class="code hl_namespace" href="namespace_corpus.html">Corpus</a>()</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># Ajouter des documents</span></div>
+<div class="line">doc = <a class="code hl_namespace" href="namespace_document.html">Document</a>(<span class="stringliteral">&quot;Python&quot;</span>, <span class="stringliteral">&quot;Langage de programmation...&quot;</span>)</div>
+<div class="line">corpus.add(doc)</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># Rechercher</span></div>
+<div class="line">results = corpus.search(<span class="stringliteral">&quot;programmation&quot;</span>)</div>
+<div class="ttc" id="anamespace_corpus_html"><div class="ttname"><a href="namespace_corpus.html">Corpus</a></div><div class="ttdef"><b>Definition</b> <a href="_corpus_8py_source.html#l00001">Corpus.py:1</a></div></div>
+<div class="ttc" id="anamespace_document_html"><div class="ttname"><a href="namespace_document.html">Document</a></div><div class="ttdef"><b>Definition</b> <a href="_document_8py_source.html#l00001">Document.py:1</a></div></div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+Recherche Avancée (V2+)</h2>
+<div class="fragment"><div class="line"><span class="comment"># Avec filtres</span></div>
+<div class="line">results = corpus.search(<span class="stringliteral">&quot;machine learning&quot;</span>, max_results=10)</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># Recherche avec pagination</span></div>
+<div class="line"><span class="keywordflow">for</span> page <span class="keywordflow">in</span> corpus.search_paginated(<span class="stringliteral">&quot;deep learning&quot;</span>, page_size=5):</div>
+<div class="line">    print(page)</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+📊 Caractéristiques</h1>
+<ul>
+<li>✅ Indexation efficace des documents</li>
+<li>✅ Recherche multi-termes</li>
+<li>✅ Support de plusieurs sources (arXiv, Reddit)</li>
+<li>✅ Interface Jupyter interactive</li>
+<li>✅ Documentation API complète</li>
+<li>✅ Tests et validation</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+🛠️ Technologie</h1>
+<ul>
+<li><b>Langage</b> : Python 3.8+</li>
+<li><b>Documentation</b> : Doxygen</li>
+<li><b>Déploiement</b> : GitHub Pages</li>
+<li><b>Notebooks</b> : Jupyter</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+📝 Licence</h1>
+<p>Projet universitaire - Université Lyon 2</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+👤 Auteur</h1>
+<p>Guillaume Lorel</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
+📞 Support</h1>
+<p>Pour toute question, consultez la documentation ou les commentaires du code.</p>
+<hr  />
+<p><b>Générée avec Doxygen</b> | <a href="docs/html/index.html">Voir la documentation</a> </p>
+</div></div><!-- PageDoc -->
+<a href="doxygen_crawl.html"></a>
+</div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
+  </ul>
+</div>
+</body>
+</html>

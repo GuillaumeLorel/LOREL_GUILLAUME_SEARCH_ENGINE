@@ -1,0 +1,27 @@
+var class_corpus_1_1_corpus =
+[
+    [ "__init__", "class_corpus_1_1_corpus.html#aca0f36011b139acac33d623d44edaadb", null ],
+    [ "__repr__", "class_corpus_1_1_corpus.html#a2224c208981a1cb32aa11f8d1d4bc35d", null ],
+    [ "_build_full_text", "class_corpus_1_1_corpus.html#a58e17cdaa99cfc58a1046cb28a189137", null ],
+    [ "add_author", "class_corpus_1_1_corpus.html#a587e93c0a155e5628862e4fab88710bb", null ],
+    [ "add_document", "class_corpus_1_1_corpus.html#a330243589d080893c45c1ba50f1d2687", null ],
+    [ "concorde", "class_corpus_1_1_corpus.html#a3d3ab05fc0714b6f4a59f23d0dc2ff3e", null ],
+    [ "display_types", "class_corpus_1_1_corpus.html#a37766967f6562b1142f7f1eaed220b1c", null ],
+    [ "get_authors", "class_corpus_1_1_corpus.html#a171a64238f8dfa77034395d97cef7dac", null ],
+    [ "get_documents", "class_corpus_1_1_corpus.html#aafae557b9491b92a24fe12976a7c736e", null ],
+    [ "get_id_document", "class_corpus_1_1_corpus.html#af96319c5ace7906aaf8963161f549c6e", null ],
+    [ "get_nom", "class_corpus_1_1_corpus.html#a0bbb01bd8a17a15e87b179d56145011b", null ],
+    [ "get_sorted_by_date", "class_corpus_1_1_corpus.html#aca7cdac4250a056f7d1bd6cba5eaa45f", null ],
+    [ "get_sorted_by_title", "class_corpus_1_1_corpus.html#a8004ea4b2b428ade610c5cad56e4a557", null ],
+    [ "load", "class_corpus_1_1_corpus.html#aea285d5211a520e6be9cc3e9e316d9bf", null ],
+    [ "nettoyer_texte", "class_corpus_1_1_corpus.html#a3bda1c666c11287bd7b8a0313ca02448", null ],
+    [ "save", "class_corpus_1_1_corpus.html#ae9c5fde11482b7d01afab0dc2c2550fb", null ],
+    [ "search", "class_corpus_1_1_corpus.html#ad797b4f6efb0f9446f3e215811d6114d", null ],
+    [ "stats", "class_corpus_1_1_corpus.html#afe8a1f59a899d760c26f1bb167bfd25a", null ],
+    [ "_full_text", "class_corpus_1_1_corpus.html#a030b33a659cf081dbe4c6a540bc82ce2", null ],
+    [ "authors", "class_corpus_1_1_corpus.html#ae5109291d50f9b170e2107b3ac5a4504", null ],
+    [ "df_data", "class_corpus_1_1_corpus.html#af661c460bf7806bb71e5785d176d51e3", null ],
+    [ "documents", "class_corpus_1_1_corpus.html#ab9d40057964f72e7742929808e4ec38e", null ],
+    [ "id_document", "class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541", null ],
+    [ "nom", "class_corpus_1_1_corpus.html#a77d860085b2560ba1d4c3b79cd707f73", null ]
+];
