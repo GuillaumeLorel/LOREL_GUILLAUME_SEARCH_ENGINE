@@ -37,9 +37,4 @@ jobs:
           publish_branch: gh-pages
           keep_files: false
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+  # deploy job removed: publishing is handled directly by peaceiris/actions-gh-pages@v3 in the build job
