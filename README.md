@@ -1,175 +1,50 @@
-# Moteur de Recherche Python
+# Projet Programmation Python - Moteur de Recherche
 
-Projet académique d'implémentation d'un moteur de recherche en Python pour le cours de Programmation de Spécialité (UE53) à l'Université Lyon 2.
+**Cours :** Programmation Python (Master 1 Informatique, Université Lyon 2)
+**Auteur :** Guillaume Lorel
 
-## 📋 Description du Projet
+## Description
 
-Ce projet développe progressivement un moteur de recherche capable de :
+Ce projet implémente un moteur de recherche textuel en Python. Il a été réalisé en suivant le cycle de vie complet d'une application (spécifications, analyse, conception, tests) et se décline en trois versions évolutives.
 
-- Indexer et rechercher des documents
-- Gérer plusieurs sources de données (arXiv, Reddit, etc.)
-- Optimiser les performances à travers les versions
-- Fournir une interface interactive avec Jupyter
+## Structure du projet
 
-## 📂 Structure du Projet
+Le code est organisé en trois dossiers correspondant aux étapes de développement :
 
-```
-├── v1/              # Version 1 : Implémentation initiale
-├── v2/              # Version 2 : Améliorations et optimisations
-├── v3/              # Version 3 : Intégration Jupyter
-├── docs/            # Documentation Doxygen
-├── Doxyfile         # Configuration Doxygen
-├── README.md        # Ce fichier
-└── .gitignore       # Configuration Git
-```
+- **v1** : Socle de base de l'application (Classes Document, Corpus, Author). Correspond aux TDs 3 à 5.
+- **v2** : Implémentation du moteur de recherche et optimisations (structures de données). Correspond aux TDs 3 à 7.
+- **v3** : Interface utilisateur interactive et extensions. Correspond aux TDs 3 à 10.
+- **docs** : Documentation technique générée par Doxygen.
 
-### Versions
+## Installation
 
-**V1 - Implémentation Basique**
+Le projet est conçu pour fonctionner sous **Python 3.10**.
 
-- Structure de base des classes (Document, Corpus, Author)
-- Indexation simple des documents
-- Fonctions de recherche élémentaires
+1.  Cloner le dépôt.
+2.  Installer les librairies nécessaires (pandas, ipywidgets, etc.) :
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-**V2 - Optimisations**
+## Utilisation
 
-- Amélioration des performances
-- Optimisation des structures de données
-- Meilleure gestion des corpus volumineux
+- **Versions 1 et 2** (Console) :
+  Exécuter le fichier principal de la version souhaitée :
 
-**V3 - Interface Interactive**
+  ```bash
+  python v1/main.py
+  python v2/main.py
+  ```
 
-- Intégration avec Jupyter Notebook
-- Interface interactive pour l'exploration
-- Documentation complète du processus
+- **Version 3** (Interface Graphique) :
+  L'interface de recherche est implémentée via un Notebook Jupyter.
+  Lancer Jupyter et ouvrir le fichier :
+  `v3/search_engine.ipynb`
 
-## 🚀 Démarrage Rapide
+## Documentation
 
-### Prérequis
+La documentation complète des classes et méthodes est disponible en ligne via GitHub Pages :
 
-- Python 3.8+
-- pip (gestionnaire de paquets)
-- Jupyter Notebook (optionnel pour v3)
+[Lien vers la documentation technique](https://guillaumelorel.github.io/LOREL_GUILLAUME_SEARCH_ENGINE/)
 
-### Installation
-
-```bash
-# Cloner le projet
-git clone <url-repo>
-cd LOREL_GUILLAUME_SEARCH_ENGINE
-
-# Installer les dépendances
-pip install -r requirements.txt
-```
-
-### Exécution
-
-```bash
-# Version 1
-python v1/main.py
-
-# Version 2
-python v2/main.py
-
-# Version 3
-jupyter notebook v3/search_engine.ipynb
-```
-
-## 📖 Documentation
-
-La documentation API complète est disponible dans le dossier `docs/`:
-
-- Générer la documentation : `doxygen Doxyfile`
-- Consulter en ligne : `docs/html/index.html`
-
-Les pages GitHub déploient automatiquement la documentation.
-
-## 🏗️ Architecture
-
-### Classes Principales
-
-**Document**
-
-- Classe de base pour les documents
-- Attributs : titre, contenu, URL, date
-
-**Corpus**
-
-- Gère une collection de documents
-- Indexation et recherche
-
-**Author**
-
-- Information sur les auteurs
-- Gestion des métadonnées
-
-**ArxivDocument** (V2+)
-
-- Spécialisation pour articles arXiv
-- Extraction des métadonnées arXiv
-
-**RedditDocument** (V2+)
-
-- Spécialisation pour posts Reddit
-- Gestion des discussions
-
-## 🔍 Utilisation
-
-### Exemple Basique
-
-```python
-from v1.main import Corpus, Document
-
-# Créer un corpus
-corpus = Corpus()
-
-# Ajouter des documents
-doc = Document("Python", "Langage de programmation...")
-corpus.add(doc)
-
-# Rechercher
-results = corpus.search("programmation")
-```
-
-### Recherche Avancée (V2+)
-
-```python
-# Avec filtres
-results = corpus.search("machine learning", max_results=10)
-
-# Recherche avec pagination
-for page in corpus.search_paginated("deep learning", page_size=5):
-    print(page)
-```
-
-## 📊 Caractéristiques
-
-- ✅ Indexation efficace des documents
-- ✅ Recherche multi-termes
-- ✅ Support de plusieurs sources (arXiv, Reddit)
-- ✅ Interface Jupyter interactive
-- ✅ Documentation API complète
-- ✅ Tests et validation
-
-## 🛠️ Technologie
-
-- **Langage** : Python 3.8+
-- **Documentation** : Doxygen
-- **Déploiement** : GitHub Pages
-- **Notebooks** : Jupyter
-
-## 📝 Licence
-
-Projet universitaire - Université Lyon 2
-
-## 👤 Auteur
-
-Guillaume Lorel
-
-## 📞 Support
-
-Pour toute question, consultez la documentation ou les commentaires du code.
-
----
-
-**Générée avec Doxygen** | [Voir la documentation](docs/html/index.html)
+Elle est également consultable en local en ouvrant le fichier `docs/index.html`.
