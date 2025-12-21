@@ -1,10 +1,15 @@
 name: Publish Doxygen docs to GitHub Pages
 
 on:
-  push:
+    branches: [main, master]
     branches: [main]
 
 permissions:
+
+  - name: Verify generated docs
+    run: |
+      echo 'Listing docs/html contents:'
+      if [ -d ./docs/html ]; then ls -R ./docs/html; else echo 'docs/html not found'; exit 1; fi
   contents: read
   pages: write
   id-token: write
