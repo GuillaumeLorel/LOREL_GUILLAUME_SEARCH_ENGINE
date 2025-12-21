@@ -24,11 +24,11 @@ jobs:
 
       - name: Verify generated docs
         run: |
-          echo 'Listing docs/html contents:'
-          if [ -d ./docs/html ]; then ls -R ./docs/html | sed -n '1,200p'; else echo 'docs/html not found'; exit 1; fi
+          echo 'Listing docs contents:'
+          if [ -d ./docs ]; then ls -R ./docs | sed -n '1,200p'; else echo 'docs not found'; exit 1; fi
 
       - name: Upload docs artifact (optional)
         uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs
-          path: docs/html
+          path: docs
