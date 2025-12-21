@@ -1,16 +1,14 @@
-name: Publish Doxygen docs to GitHub Pages
+name: Build Doxygen documentation
 
 on:
   push:
-    branches: [main, master]
+    branches: [master]
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 jobs:
-  build:
+  build-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,14 +25,10 @@ jobs:
       - name: Verify generated docs
         run: |
           echo 'Listing docs/html contents:'
-          if [ -d ./docs/html ]; then ls -R ./docs/html; else echo 'docs/html not found'; exit 1; fi
+          if [ -d ./docs/html ]; then ls -R ./docs/html | sed -n '1,200p'; else echo 'docs/html not found'; exit 1; fi
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload docs artifact (optional)
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/html
-          publish_branch: gh-pages
-          keep_files: false
-
-  # deploy job removed: publishing is handled directly by peaceiris/actions-gh-pages@v3 in the build job
+          name: doxygen-docs
+          path: docs/html
