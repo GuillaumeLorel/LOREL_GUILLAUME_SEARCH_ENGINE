@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['texte_0',['texte',['../namespacemain.html#a907d40c4c760968341599f8312e29d70',1,'main']]],
-  ['titre_1',['titre',['../namespacemain.html#a2603d2bdf9ae820fede34cad3f39b21b',1,'main']]]
+  ['vocab_0',['vocab',['../class_search_engine_1_1_search_engine.html#ac83bb142ac0d88bae24fa8af6edd73ae',1,'SearchEngine::SearchEngine']]]
 ];

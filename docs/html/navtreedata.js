@@ -24,21 +24,27 @@
 */
 var NAVTREE =
 [
-  [ "Python Search Engine", "index.html", [
-    [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", "namespaces_dup" ],
-      [ "Package Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
+  [ "Moteur de Recherche - LOREL Guillaume", "index.html", [
+    [ "Moteur de Recherche Python", "index.html", "index" ],
+    [ "Paquetages", "namespaces.html", [
+      [ "Liste des paquetages", "namespaces.html", "namespaces_dup" ],
+      [ "Membres de paquetage", "namespacemembers.html", [
+        [ "Tout", "namespacemembers.html", null ],
+        [ "Fonctions", "namespacemembers_func.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ]
+      [ "Liste des classes", "annotated.html", "annotated_dup" ],
+      [ "Index des classes", "classes.html", null ],
+      [ "Hiérarchie des classes", "hierarchy.html", "hierarchy" ],
+      [ "Membres de classe", "functions.html", [
+        [ "Tout", "functions.html", null ],
+        [ "Fonctions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
     ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
+    [ "Fichiers", "files.html", [
+      [ "Liste des fichiers", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
@@ -48,6 +54,6 @@ var NAVTREEINDEX =
 "_author_8py.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
-var LISTOFALLMEMBERS = 'List of all members';
+var SYNCONMSG = 'cliquez pour désactiver la synchronisation du panel';
+var SYNCOFFMSG = 'cliquez pour activer la synchronisation du panel';
+var LISTOFALLMEMBERS = 'Liste de tous les membres';

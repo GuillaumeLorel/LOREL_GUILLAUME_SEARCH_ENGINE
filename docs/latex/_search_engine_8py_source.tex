@@ -1,0 +1,193 @@
+\doxysection{Search\+Engine.\+py}
+\hypertarget{_search_engine_8py_source}{}\label{_search_engine_8py_source}\index{v3/models/SearchEngine.py@{v3/models/SearchEngine.py}}
+\mbox{\hyperlink{_search_engine_8py}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00001}\mbox{\hyperlink{namespace_search_engine}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00002}00002\ \textcolor{stringliteral}{\#\ SearchEngine.py}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00003}00003\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00004}00004\ \textcolor{stringliteral}{Moteur\ de\ recherche.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00005}00005\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00006}00006\ \textcolor{stringliteral}{**Author:**\ LOREL\ Guillaume\ \ }}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00007}00007\ \textcolor{stringliteral}{**Version:**\ 2.0}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00008}00008\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00010}00010\ \textcolor{keyword}{import}\ math}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00011}00011\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00012}00012\ \textcolor{keyword}{import}\ pandas\ \textcolor{keyword}{as}\ pd}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00013}00013\ \textcolor{keyword}{from}\ scipy.sparse\ \textcolor{keyword}{import}\ csr\_matrix}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00014}00014\ \textcolor{keyword}{from}\ numpy.linalg\ \textcolor{keyword}{import}\ norm}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00015}00015\ \textcolor{keyword}{from}\ scipy.sparse\ \textcolor{keyword}{import}\ diags}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00016}00016\ \textcolor{keyword}{from}\ tqdm\ \textcolor{keyword}{import}\ tqdm}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00019}\mbox{\hyperlink{class_search_engine_1_1_search_engine}{00019}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_search_engine_1_1_search_engine}{SearchEngine}}:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00020}00020\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00021}00021\ \textcolor{stringliteral}{\ \ \ \ \#\ SearchEngine}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ \ \ Classe\ gérant\ la\ matrice\ TF-\/IDF\ et\ la\ recherche.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00026}\mbox{\hyperlink{class_search_engine_1_1_search_engine_a5d1fe96a12f1196f2bff7b0a0e08f09e}{00026}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_search_engine_1_1_search_engine_a5d1fe96a12f1196f2bff7b0a0e08f09e}{\_\_init\_\_}}(self,\ corpus):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Constructeur\ qui\ lance\ toutes\ les\ étapes\ d'indexation.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00029}00029\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00031}00031\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **corpus**:\ L'objet\ Corpus\ contenant\ les\ documents.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00032}00032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Notes**}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Construit\ un\ vocabulaire,\ puis\ une\ matrice\ TF\ et\ TF-\/IDF.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00036}\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{00036}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}}\ =\ corpus}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00037}\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{00037}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}\ =\ \{\}\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00038}\mbox{\hyperlink{class_search_engine_1_1_search_engine_a55701181631f2f66cdf664f6408fa580}{00038}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a55701181631f2f66cdf664f6408fa580}{mat\_TF}}\ =\ \textcolor{keywordtype}{None}\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00039}\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7a3812ccdb46c5c788aabd58b881dd3a}{00039}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7a3812ccdb46c5c788aabd58b881dd3a}{mat\_TF\_IDF}}\ =\ \textcolor{keywordtype}{None}\ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00040}\mbox{\hyperlink{class_search_engine_1_1_search_engine_a0316bf1e6d98937509e0cb4bbcaaf353}{00040}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a0316bf1e6d98937509e0cb4bbcaaf353}{N\_docs}}\ =\ len(corpus.get\_documents())}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_aeae74addb05ea9e4c0ea204862c36fec}{\_build\_vocab}}()}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a2f5f01f2523fa883e5bed1d622da3357}{\_build\_tf\_matrix}}()}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7ec993160e9bbaec53be6f0192b38648}{\_build\_tfidf\_matrix}}()}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00046}\mbox{\hyperlink{class_search_engine_1_1_search_engine_aeae74addb05ea9e4c0ea204862c36fec}{00046}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_search_engine_1_1_search_engine_aeae74addb05ea9e4c0ea204862c36fec}{\_build\_vocab}}(self):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Construction\ du\ vocabulaire\ à\ partir\ du\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00049}00049\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ mots\_uniques\ =\ set()}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ docs\ =\ list(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}}.get\_documents().values())}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ doc\ \textcolor{keywordflow}{in}\ docs:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ texte\ =\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}}.nettoyer\_texte(doc.get\_texte())}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ mot\ \textcolor{keywordflow}{in}\ texte.split(\textcolor{stringliteral}{'\ '}):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ mot:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mots\_uniques.add(mot)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ liste\_mots\ =\ sorted(list(mots\_uniques))}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ mot\ \textcolor{keywordflow}{in}\ enumerate(liste\_mots):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}[mot]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ i,\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'doc\_count'}:\ 0}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}-\/>\ Vocabulaire\ créé\ :\ \{len(self.vocab)\}\ mots."{}})}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00069}\mbox{\hyperlink{class_search_engine_1_1_search_engine_a2f5f01f2523fa883e5bed1d622da3357}{00069}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_search_engine_1_1_search_engine_a2f5f01f2523fa883e5bed1d622da3357}{\_build\_tf\_matrix}}(self):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Construction\ de\ la\ matrice\ Documents\ x\ Mots\ (TF).}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ rows\ =\ []}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ cols\ =\ []}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ data\ =\ []}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ docs\ =\ list(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}}.get\_documents().values())}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ index\_doc,\ doc\ \textcolor{keywordflow}{in}\ enumerate(docs):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ texte\ =\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}}.nettoyer\_texte(doc.get\_texte())}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ mots\_doc\ =\ [m\ \textcolor{keywordflow}{for}\ m\ \textcolor{keywordflow}{in}\ texte.split(\textcolor{stringliteral}{'\ '})\ \textcolor{keywordflow}{if}\ m]}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ compte\_local\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ mot\ \textcolor{keywordflow}{in}\ mots\_doc:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ compte\_local[mot]\ =\ compte\_local.get(mot,\ 0)\ +\ 1}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Remplissage\ des\ listes\ pour\ la\ matrice\ sparse}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ mot,\ count\ \textcolor{keywordflow}{in}\ compte\_local.items():}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ mot\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\_mot\ =\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}[mot][\textcolor{stringliteral}{'id'}]}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rows.append(index\_doc)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cols.append(index\_mot)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data.append(count)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}[mot][\textcolor{stringliteral}{'doc\_count'}]\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ n\_vocab\ =\ len(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}})}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a55701181631f2f66cdf664f6408fa580}{mat\_TF}}\ =\ csr\_matrix((data,\ (rows,\ cols)),\ shape=(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a0316bf1e6d98937509e0cb4bbcaaf353}{N\_docs}},\ n\_vocab))}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00101}\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7ec993160e9bbaec53be6f0192b38648}{00101}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7ec993160e9bbaec53be6f0192b38648}{\_build\_tfidf\_matrix}}(self):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00103}00103\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Construction\ de\ la\ matrice\ TF-\/IDF.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ idf\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ mots\_tries\ =\ sorted(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}.keys())}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ mot\ \textcolor{keywordflow}{in}\ mots\_tries:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ df\ =\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}[mot][\textcolor{stringliteral}{'doc\_count'}]}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Formule\ IDF\ }}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ df\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ val\_idf\ =\ math.log(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a0316bf1e6d98937509e0cb4bbcaaf353}{N\_docs}}\ /\ df)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ val\_idf\ =\ 0}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ idf\_list.append(val\_idf)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Multiplication\ :\ Matrice\ TF\ *\ Diagonale\ des\ IDF}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ diag\_idf\ =\ diags(idf\_list)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7a3812ccdb46c5c788aabd58b881dd3a}{mat\_TF\_IDF}}\ =\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a55701181631f2f66cdf664f6408fa580}{mat\_TF}}.dot(diag\_idf)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00122}\mbox{\hyperlink{class_search_engine_1_1_search_engine_ad2b4d88946b18046a14e05e83db90096}{00122}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_search_engine_1_1_search_engine_ad2b4d88946b18046a14e05e83db90096}{search}}(self,\ query,\ n\_results=10):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00124}00124\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Recherche\ des\ documents\ les\ plus\ pertinents\ pour\ une\ requête.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00125}00125\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **query**:\ La\ requête\ utilisateur.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **n\_results**:\ Nombre\ de\ documents\ à\ retourner.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00129}00129\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00130}00130\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00131}00131\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Un\ DataFrame\ avec\ les\ résultats\ triés\ par\ score\ décroissant.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00132}00132\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Notes**}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Retourne\ un\ DataFrame\ vide\ si\ aucun\ terme\ de\ la\ requête\ n'est\ dans\ le\ vocabulaire.}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00135}00135\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ query\_clean\ =\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}}.nettoyer\_texte(query)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ mots\_query\ =\ [m\ \textcolor{keywordflow}{for}\ m\ \textcolor{keywordflow}{in}\ query\_clean.split(\textcolor{stringliteral}{'\ '})\ \textcolor{keywordflow}{if}\ m]}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ query\_vec\ =\ np.zeros(len(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}))}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ mot\ \textcolor{keywordflow}{in}\ mots\_query:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ mot\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idx\ =\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}}[mot][\textcolor{stringliteral}{'id'}]}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_vec[idx]\ +=\ 1\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ scores\ =\ []}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ docs\ =\ list(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}}.get\_documents().values())}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Norme\ du\ vecteur\ requête\ ||B||}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ norm\_query\ =\ np.linalg.norm(query\_vec)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ norm\_query\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pd.DataFrame()}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Boucle\ sur\ chaque\ document}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ tqdm(range(self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a0316bf1e6d98937509e0cb4bbcaaf353}{N\_docs}}),\ desc=\textcolor{stringliteral}{"{}Recherche"{}},\ leave=\textcolor{keyword}{False}):}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ doc\_vec\ =\ self.\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7a3812ccdb46c5c788aabd58b881dd3a}{mat\_TF\_IDF}}.getrow(i).toarray()[0]}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Produit\ scalaire\ A\ .\ B}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ dot\_product\ =\ np.dot(doc\_vec,\ query\_vec)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Norme\ du\ document\ ||A||}}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ norm\_doc\ =\ np.linalg.norm(doc\_vec)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ norm\_doc\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sim\ =\ dot\_product\ /\ (norm\_doc\ *\ norm\_query)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sim\ =\ 0}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ scores.append(sim)}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ indices\_tries\ =\ np.argsort(scores)[::-\/1]}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ resultats\ =\ []}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ indices\_tries[:n\_results]:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ scores[i]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ doc\_obj\ =\ docs[i]}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ resultats.append(\{}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Document"{}}:\ doc\_obj.get\_titre(),}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Score"{}}:\ round(scores[i],\ 4),}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Auteur"{}}:\ doc\_obj.get\_auteur(),}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Date"{}}:\ doc\_obj.get\_date(),}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}URL"{}}:\ doc\_obj.get\_url(),}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Type"{}}:\ doc\_obj.getType()}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_search_engine_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pd.DataFrame(resultats)}
+
+\end{DoxyCode}

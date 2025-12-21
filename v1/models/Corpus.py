@@ -1,8 +1,10 @@
 """!
-@file Corpus.py
-@brief Module contenant la logique de gestion du corpus de documents.
-@author LOREL Guillaume
-@version 1.0
+# Corpus.py
+
+Module contenant la logique de gestion du corpus de documents.
+
+**Author:** LOREL Guillaume  
+**Version:** 1.0
 """
 
 import pandas as pd
@@ -10,9 +12,13 @@ from models.Author import Author
 
 def singleton(cls):
     """!
-    @brief Décorateur pour implémenter le patron Singleton.
-    @param cls La classe à décorer.
-    @return L'instance unique de la classe.
+    Décorateur pour implémenter le patron Singleton.
+
+    **Parameters**
+    - **cls**: La classe à décorer.
+
+    **Returns**
+    - Une fonction wrapper retournant l'instance unique de la classe.
     """
     instance = [None]
     def wrapper(*args, **kwargs):
@@ -24,17 +30,21 @@ def singleton(cls):
 @singleton
 class Corpus:
     """!
-    @class Corpus
-    @brief Classe principale gérant la collection de documents et d'auteurs.
-    @note Utilise le pattern Singleton.
+    # Corpus
+
+    Classe principale gérant la collection de documents et d'auteurs.
+
+    **Note:** Utilise le pattern Singleton.
     """
     def __init__(self, nom="Corpus par défaut", documents=None, id_document=0, authors=None):
         """!
-        @brief Constructeur du Corpus.
-        @param nom Nom du corpus.
-        @param documents Dictionnaire initial des documents (optionnel).
-        @param id_document Identifiant initial pour les documents (optionnel).
-        @param authors Dictionnaire initial des auteurs (optionnel).
+        Constructeur du Corpus.
+
+        **Parameters**
+        - **nom**: Nom du corpus.
+        - **documents**: Dictionnaire initial des documents (optionnel).
+        - **id_document**: Identifiant initial pour les documents (optionnel).
+        - **authors**: Dictionnaire initial des auteurs (optionnel).
         """
         self.nom = nom
         self.documents = documents if documents is not None else {}
@@ -43,36 +53,46 @@ class Corpus:
     
     def get_nom(self):
         """!
-        @brief Accesseur pour le nom du corpus.
-        @return Le nom du corpus.
+        Accesseur pour le nom du corpus.
+
+        **Returns**
+        - Le nom du corpus.
         """
         return self.nom
     
     def get_documents(self):
         """!
-        @brief Accesseur pour les documents.
-        @return Dictionnaire des documents.
+        Accesseur pour les documents.
+
+        **Returns**
+        - Dictionnaire des documents.
         """
         return self.documents
     
     def get_id_document(self):
         """!
-        @brief Accesseur pour l'identifiant du document.
-        @return L'identifiant actuel pour les documents.
+        Accesseur pour l'identifiant du document.
+
+        **Returns**
+        - L'identifiant actuel pour les documents.
         """
         return self.id_document
     
     def get_authors(self):
         """!
-        @brief Accesseur pour les auteurs.
-        @return Dictionnaire des auteurs.
+        Accesseur pour les auteurs.
+
+        **Returns**
+        - Dictionnaire des auteurs.
         """
         return self.authors
     
     def add_document(self, document):
         """!
-        @brief Ajoute un Document au corpus et met à jour l'objet Author correspondant.
-        @param document Instance de Document (ou classe fille) à ajouter.
+        Ajoute un Document au corpus et met à jour l'objet Author correspondant.
+
+        **Parameters**
+        - **document**: Instance de Document (ou classe fille) à ajouter.
         """
         self.documents[self.id_document] = document
         self.id_document += 1
@@ -86,15 +106,19 @@ class Corpus:
 
     def add_author(self, author):
         """!
-        @brief Ajoute manuellement un auteur au corpus.
-        @param author Instance de Author à ajouter.
+        Ajoute manuellement un auteur au corpus.
+
+        **Parameters**
+        - **author**: Instance de Author à ajouter.
         """
         self.authors[author.get_nom()] = author
 
     def __repr__(self):
         """!
-        @brief Représentation textuelle du corpus.
-        @return Résumé du contenu du corpus.
+        Représentation textuelle du corpus.
+
+        **Returns**
+        - Résumé du contenu du corpus.
         """
         nb_docs = len(self.documents)
         nb_authors = len(self.authors)
@@ -103,7 +127,7 @@ class Corpus:
     
     def stats(self):
         """!
-        @brief Affiche les statistiques globales du corpus.
+        Affiche les statistiques globales du corpus.
         """
         print(f"\n--- Statistiques du corpus '{self.nom}' ---")
         print(f"Nombre de documents: {len(self.documents)}")
@@ -111,8 +135,10 @@ class Corpus:
         
     def get_sorted_by_date(self, n=10):
         """!
-        @brief Affiche les 'n' documents triés par date (récent -> ancien).
-        @param n Nombre de documents à afficher.
+        Affiche les 'n' documents triés par date (récent -> ancien).
+
+        **Parameters**
+        - **n**: Nombre de documents à afficher.
         """
         print(f"\n--- {n} documents les plus récents de {self.nom} ---")
         sorted_docs = sorted(
@@ -125,8 +151,10 @@ class Corpus:
 
     def get_sorted_by_title(self, n=10):
         """!
-        @brief Affiche les 'n' documents triés par titre alphabétique.
-        @param n Nombre de documents à afficher.
+        Affiche les 'n' documents triés par titre alphabétique.
+
+        **Parameters**
+        - **n**: Nombre de documents à afficher.
         """
         print(f"\n--- {n} documents triés par titre de {self.nom} ---")
         sorted_docs = sorted(
@@ -138,8 +166,10 @@ class Corpus:
 
     def save(self, filename='corpus.csv'):
         """!
-        @brief Enregistre le corpus sur le disque au format CSV.
-        @param filename Nom du fichier de sauvegarde.
+        Enregistre le corpus sur le disque au format CSV.
+
+        **Parameters**
+        - **filename**: Nom du fichier de sauvegarde.
         """
         path = f'./v1/data/{filename}'
         print(f"\n-> Sauvegarde du corpus dans {path}...")
@@ -163,9 +193,11 @@ class Corpus:
 
     def load(self, filename='corpus.csv', nom="Corpus Chargé"):
         """!
-        @brief Charge un corpus depuis un fichier CSV.
-        @param filename Nom du fichier à charger.
-        @param nom Nouveau nom pour le corpus chargé.
+        Charge un corpus depuis un fichier CSV.
+
+        **Parameters**
+        - **filename**: Nom du fichier à charger.
+        - **nom**: Nouveau nom pour le corpus chargé.
         """
         path = f'./v1/data/{filename}'
         print(f"\n-> Chargement du corpus depuis {path}...")
@@ -187,7 +219,10 @@ class Corpus:
     
     def display_types(self, n=10):
         """!
-        @brief Affiche le type de chaque document présent dans le corpus.
+        Affiche le type de chaque document présent dans le corpus.
+
+        **Parameters**
+        - **n**: Nombre de documents à afficher.
         """
         print(f"\n--- Types des documents dans le corpus '{self.nom}' ---")
         # Affiche seulement les n premiers pour éviter de polluer la console

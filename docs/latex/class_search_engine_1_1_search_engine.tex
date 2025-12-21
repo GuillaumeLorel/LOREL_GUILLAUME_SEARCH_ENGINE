@@ -1,0 +1,210 @@
+\doxysection{Référence de la classe Search\+Engine.\+Search\+Engine}
+\hypertarget{class_search_engine_1_1_search_engine}{}\label{class_search_engine_1_1_search_engine}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+
+
+Graphe de collaboration de Search\+Engine.\+Search\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=213pt]{class_search_engine_1_1_search_engine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_a5d1fe96a12f1196f2bff7b0a0e08f09e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}})
+\begin{DoxyCompactList}\small\item\em Constructeur qui lance toutes les étapes d\textquotesingle{}indexation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_ad2b4d88946b18046a14e05e83db90096}{search}} (self, query, n\+\_\+results=10)
+\begin{DoxyCompactList}\small\item\em Recherche des documents les plus pertinents pour une requête. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}{corpus}} = corpus
+\item 
+dict \mbox{\hyperlink{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}{vocab}} = \{\}
+\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_a55701181631f2f66cdf664f6408fa580}{mat\+\_\+\+TF}} = None
+\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7a3812ccdb46c5c788aabd58b881dd3a}{mat\+\_\+\+TF\+\_\+\+IDF}} = None
+\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_a0316bf1e6d98937509e0cb4bbcaaf353}{N\+\_\+docs}} = len(corpus.\+get\+\_\+documents())
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions membres protégées}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_aeae74addb05ea9e4c0ea204862c36fec}{\+\_\+build\+\_\+vocab}} (self)
+\begin{DoxyCompactList}\small\item\em Construction du vocabulaire à partir du corpus. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_a2f5f01f2523fa883e5bed1d622da3357}{\+\_\+build\+\_\+tf\+\_\+matrix}} (self)
+\begin{DoxyCompactList}\small\item\em Construction de la matrice Documents x Mots (TF). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_search_engine_1_1_search_engine_a7ec993160e9bbaec53be6f0192b38648}{\+\_\+build\+\_\+tfidf\+\_\+matrix}} (self)
+\begin{DoxyCompactList}\small\item\em Construction de la matrice TF-\/\+IDF. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+\hypertarget{class_search_engine_1_1_search_engine_autotoc_md8}{}\doxysubsection{\texorpdfstring{Search\+Engine}{Search\+Engine}}\label{class_search_engine_1_1_search_engine_autotoc_md8}
+Classe gérant la matrice TF-\/\+IDF et la recherche. 
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00019}{19}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_search_engine_1_1_search_engine_doc-constructors}
+\doxysubsection{Documentation des constructeurs et destructeur}
+\Hypertarget{class_search_engine_1_1_search_engine_a5d1fe96a12f1196f2bff7b0a0e08f09e}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_a5d1fe96a12f1196f2bff7b0a0e08f09e} 
+Search\+Engine.\+Search\+Engine.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{corpus}{}\end{DoxyParamCaption})}
+
+
+
+Constructeur qui lance toutes les étapes d\textquotesingle{}indexation. 
+
+{\bfseries{Parameters}}
+\begin{DoxyItemize}
+\item {\bfseries{corpus}}\+: L\textquotesingle{}objet \doxylink{namespace_corpus}{Corpus} contenant les documents.
+\end{DoxyItemize}
+
+{\bfseries{Notes}}
+\begin{DoxyItemize}
+\item Construit un vocabulaire, puis une matrice TF et TF-\/\+IDF. 
+\end{DoxyItemize}
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00026}{26}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_search_engine_1_1_search_engine_doc-func-members}
+\doxysubsection{Documentation des fonctions membres}
+\Hypertarget{class_search_engine_1_1_search_engine_a2f5f01f2523fa883e5bed1d622da3357}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!\_build\_tf\_matrix@{\_build\_tf\_matrix}}
+\index{\_build\_tf\_matrix@{\_build\_tf\_matrix}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{\_build\_tf\_matrix()}{\_build\_tf\_matrix()}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_a2f5f01f2523fa883e5bed1d622da3357} 
+Search\+Engine.\+Search\+Engine.\+\_\+build\+\_\+tf\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Construction de la matrice Documents x Mots (TF). 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00069}{69}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+\Hypertarget{class_search_engine_1_1_search_engine_a7ec993160e9bbaec53be6f0192b38648}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!\_build\_tfidf\_matrix@{\_build\_tfidf\_matrix}}
+\index{\_build\_tfidf\_matrix@{\_build\_tfidf\_matrix}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{\_build\_tfidf\_matrix()}{\_build\_tfidf\_matrix()}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_a7ec993160e9bbaec53be6f0192b38648} 
+Search\+Engine.\+Search\+Engine.\+\_\+build\+\_\+tfidf\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Construction de la matrice TF-\/\+IDF. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00101}{101}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+\Hypertarget{class_search_engine_1_1_search_engine_aeae74addb05ea9e4c0ea204862c36fec}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!\_build\_vocab@{\_build\_vocab}}
+\index{\_build\_vocab@{\_build\_vocab}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{\_build\_vocab()}{\_build\_vocab()}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_aeae74addb05ea9e4c0ea204862c36fec} 
+Search\+Engine.\+Search\+Engine.\+\_\+build\+\_\+vocab (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Construction du vocabulaire à partir du corpus. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00046}{46}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+\Hypertarget{class_search_engine_1_1_search_engine_ad2b4d88946b18046a14e05e83db90096}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!search@{search}}
+\index{search@{search}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{search()}{search()}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_ad2b4d88946b18046a14e05e83db90096} 
+Search\+Engine.\+Search\+Engine.\+search (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{query}{, }\item[{}]{n\+\_\+results}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+
+
+Recherche des documents les plus pertinents pour une requête. 
+
+{\bfseries{Parameters}}
+\begin{DoxyItemize}
+\item {\bfseries{query}}\+: La requête utilisateur.
+\item {\bfseries{n\+\_\+results}}\+: Nombre de documents à retourner.
+\end{DoxyItemize}
+
+{\bfseries{Returns}}
+\begin{DoxyItemize}
+\item Un Data\+Frame avec les résultats triés par score décroissant.
+\end{DoxyItemize}
+
+{\bfseries{Notes}}
+\begin{DoxyItemize}
+\item Retourne un Data\+Frame vide si aucun terme de la requête n\textquotesingle{}est dans le vocabulaire. 
+\end{DoxyItemize}
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00122}{122}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_search_engine_1_1_search_engine_doc-variable-members}
+\doxysubsection{Documentation des données membres}
+\Hypertarget{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!corpus@{corpus}}
+\index{corpus@{corpus}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{corpus}{corpus}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_ae9f187f6c31e0bad01f1bce7d5223d7d} 
+Search\+Engine.\+Search\+Engine.\+corpus = corpus}
+
+
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00036}{36}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+\Hypertarget{class_search_engine_1_1_search_engine_a55701181631f2f66cdf664f6408fa580}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!mat\_TF@{mat\_TF}}
+\index{mat\_TF@{mat\_TF}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{mat\_TF}{mat\_TF}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_a55701181631f2f66cdf664f6408fa580} 
+Search\+Engine.\+Search\+Engine.\+mat\+\_\+\+TF = None}
+
+
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00038}{38}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+\Hypertarget{class_search_engine_1_1_search_engine_a7a3812ccdb46c5c788aabd58b881dd3a}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!mat\_TF\_IDF@{mat\_TF\_IDF}}
+\index{mat\_TF\_IDF@{mat\_TF\_IDF}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{mat\_TF\_IDF}{mat\_TF\_IDF}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_a7a3812ccdb46c5c788aabd58b881dd3a} 
+Search\+Engine.\+Search\+Engine.\+mat\+\_\+\+TF\+\_\+\+IDF = None}
+
+
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00039}{39}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+\Hypertarget{class_search_engine_1_1_search_engine_a0316bf1e6d98937509e0cb4bbcaaf353}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!N\_docs@{N\_docs}}
+\index{N\_docs@{N\_docs}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{N\_docs}{N\_docs}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_a0316bf1e6d98937509e0cb4bbcaaf353} 
+Search\+Engine.\+Search\+Engine.\+N\+\_\+docs = len(corpus.\+get\+\_\+documents())}
+
+
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00040}{40}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+\Hypertarget{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae}\index{SearchEngine.SearchEngine@{SearchEngine.SearchEngine}!vocab@{vocab}}
+\index{vocab@{vocab}!SearchEngine.SearchEngine@{SearchEngine.SearchEngine}}
+\doxysubsubsection{\texorpdfstring{vocab}{vocab}}
+{\footnotesize\ttfamily \label{class_search_engine_1_1_search_engine_ac83bb142ac0d88bae24fa8af6edd73ae} 
+dict Search\+Engine.\+Search\+Engine.\+vocab = \{\}}
+
+
+
+Définition à la ligne \mbox{\hyperlink{_search_engine_8py_source_l00037}{37}} du fichier \mbox{\hyperlink{_search_engine_8py_source}{Search\+Engine.\+py}}.
+
+
+
+La documentation de cette classe a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+v3/models/\mbox{\hyperlink{_search_engine_8py}{Search\+Engine.\+py}}\end{DoxyCompactItemize}

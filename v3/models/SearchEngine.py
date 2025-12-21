@@ -1,8 +1,10 @@
 """!
-@file SearchEngine.py
-@brief Moteur de recherche (Implémentation TD7).
-@author LOREL Guillaume
-@version 1.0
+# SearchEngine.py
+
+Moteur de recherche.
+
+**Author:** LOREL Guillaume  
+**Version:** 2.0
 """
 
 import math
@@ -16,14 +18,20 @@ from tqdm import tqdm
 
 class SearchEngine:
     """!
-    @class SearchEngine
-    @brief Classe gérant la matrice TF-IDF et la recherche.
+    # SearchEngine
+
+    Classe gérant la matrice TF-IDF et la recherche.
     """
 
     def __init__(self, corpus):
         """!
-        @brief Constructeur qui lance toutes les étapes d'indexation.
-        @param corpus L'objet Corpus contenant les documents.
+        Constructeur qui lance toutes les étapes d'indexation.
+
+        **Parameters**
+        - **corpus**: L'objet Corpus contenant les documents.
+
+        **Notes**
+        - Construit un vocabulaire, puis une matrice TF et TF-IDF.
         """
         self.corpus = corpus
         self.vocab = {}          
@@ -37,7 +45,7 @@ class SearchEngine:
 
     def _build_vocab(self):
         """!
-        @brief Construction du vocabulaire à partir du corpus.
+        Construction du vocabulaire à partir du corpus.
         """
         mots_uniques = set()
         docs = list(self.corpus.get_documents().values())
@@ -60,7 +68,7 @@ class SearchEngine:
 
     def _build_tf_matrix(self):
         """!
-        @brief Construction de la matrice Documents x Mots (TF).
+        Construction de la matrice Documents x Mots (TF).
         """
         rows = []
         cols = []
@@ -92,7 +100,7 @@ class SearchEngine:
 
     def _build_tfidf_matrix(self):
         """!
-        @brief Construction de la matrice TF-IDF.
+        Construction de la matrice TF-IDF.
         """
         idf_list = []
         mots_tries = sorted(self.vocab.keys())
@@ -113,10 +121,17 @@ class SearchEngine:
 
     def search(self, query, n_results=10):
         """!
-        @brief Recherche des documents les plus pertinents pour une requête.
-        @param query La requête utilisateur.
-        @param n_results Nombre de documents à retourner.
-        @return Un DataFrame avec les résultats.
+        Recherche des documents les plus pertinents pour une requête.
+
+        **Parameters**
+        - **query**: La requête utilisateur.
+        - **n_results**: Nombre de documents à retourner.
+
+        **Returns**
+        - Un DataFrame avec les résultats triés par score décroissant.
+
+        **Notes**
+        - Retourne un DataFrame vide si aucun terme de la requête n'est dans le vocabulaire.
         """
         query_clean = self.corpus.nettoyer_texte(query)
         mots_query = [m for m in query_clean.split(' ') if m]

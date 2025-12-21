@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hot_5fposts_0',['hot_posts',['../namespacemain.html#a1bd80a6e081da088a4db9ce81ac98cd3',1,'main']]]
+  ['id_5fdocument_0',['id_document',['../class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541',1,'Corpus::Corpus']]]
 ];

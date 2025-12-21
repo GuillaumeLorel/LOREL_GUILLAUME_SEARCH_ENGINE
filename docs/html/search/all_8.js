@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['reddit_0',['reddit',['../namespacemain.html#af459e1b383e1c1e4796845a899bf52eb',1,'main']]],
-  ['redditdocument_1',['RedditDocument',['../class_reddit_document.html',1,'']]]
+  ['licence_0',['📝 Licence',['../index.html#autotoc_md25',1,'']]],
+  ['load_1',['load',['../class_corpus_1_1_corpus.html#aea285d5211a520e6be9cc3e9e316d9bf',1,'Corpus::Corpus']]]
 ];

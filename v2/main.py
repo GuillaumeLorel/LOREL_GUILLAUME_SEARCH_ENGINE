@@ -1,8 +1,15 @@
 """!
-@file main.py
-@brief Point d'entrée principal du programme de gestion de corpus.
-@author LOREL Guillaume
-@version 1.0
+# main.py
+
+Point d'entrée principal (v2) : constitution d'un corpus et moteur de recherche.
+
+**Author:** LOREL Guillaume  
+**Version:** 2.0
+
+Ce script:
+- récupère des documents depuis Reddit et Arxiv,
+- les ajoute dans un objet `Corpus`,
+- construit ensuite un `SearchEngine` (TF-IDF) pour effectuer des recherches.
 """
 
 import urllib

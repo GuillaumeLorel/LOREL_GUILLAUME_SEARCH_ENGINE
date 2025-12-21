@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reddit_0',['reddit',['../namespacemain.html#af459e1b383e1c1e4796845a899bf52eb',1,'main']]]
+  ['url_0',['url',['../class_document_1_1_document.html#a5d93c07369908abae0e2d872265fdfbe',1,'Document::Document']]]
 ];

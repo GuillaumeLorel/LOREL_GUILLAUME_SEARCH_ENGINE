@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['parsed_5fdata_0',['parsed_data',['../namespacemain.html#a1dcf8a845de86afaad8f3ad97c848a5f',1,'main']]]
+  ['id_5fdocument_0',['id_document',['../class_corpus_1_1_corpus.html#ad10a4c70f9117783702c330961466541',1,'Corpus::Corpus']]],
+  ['installation_1',['Installation',['../index.html#autotoc_md15',1,'']]]
 ];

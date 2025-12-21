@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['mon_5fcorpus_0',['mon_corpus',['../namespacemain.html#af5fef1527f70c7daa580c974741b95cf',1,'main']]],
-  ['moyenne_1',['moyenne',['../namespacemain.html#ae9edf87a36b23e3e47ff9265f95443a7',1,'main']]]
+  ['mat_5ftf_0',['mat_TF',['../class_search_engine_1_1_search_engine.html#a55701181631f2f66cdf664f6408fa580',1,'SearchEngine::SearchEngine']]],
+  ['mat_5ftf_5fidf_1',['mat_TF_IDF',['../class_search_engine_1_1_search_engine.html#a7a3812ccdb46c5c788aabd58b881dd3a',1,'SearchEngine::SearchEngine']]]
 ];

@@ -1,6 +1,6 @@
 """!
 @file SearchEngine.py
-@brief Moteur de recherche (Implémentation TD7).
+@brief Moteur de recherche.
 @author LOREL Guillaume
 @version 1.0
 """

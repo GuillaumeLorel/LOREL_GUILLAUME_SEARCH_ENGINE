@@ -1,9 +1,10 @@
 var namespaces_dup =
 [
     [ "Author", "namespace_author.html", null ],
-    [ "Corpus", "namespace_corpus.html", [
-      [ "singleton", "namespace_corpus.html#aff61e26027cc8d0dfb9a74627b5652bb", null ]
+    [ "Corpus", "namespace_corpus.html", "namespace_corpus" ],
+    [ "Document", "namespace_document.html", "namespace_document" ],
+    [ "main", "namespacemain.html", [
+      [ "main", "namespacemain.html#a3140e9a5b6a71ffbf498198cfc471b88", null ]
     ] ],
-    [ "Document", "namespace_document.html", null ],
-    [ "main", "namespacemain.html", null ]
+    [ "SearchEngine", "namespace_search_engine.html", "namespace_search_engine" ]
 ];

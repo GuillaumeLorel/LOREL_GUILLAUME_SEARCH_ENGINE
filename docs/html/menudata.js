@@ -23,15 +23,40 @@
  @licend  The above is the entire license notice for the JavaScript code in this file
 */
 var menudata={children:[
-{text:"Main Page",url:"index.html"},
-{text:"Packages",url:"namespaces.html",children:[
-{text:"Package List",url:"namespaces.html"},
-{text:"Package Members",url:"namespacemembers.html",children:[
-{text:"All",url:"namespacemembers.html"},
-{text:"Functions",url:"namespacemembers_func.html"}]}]},
+{text:"Page principale",url:"index.html"},
+{text:"Paquetages",url:"namespaces.html",children:[
+{text:"Liste des paquetages",url:"namespaces.html"},
+{text:"Membres de paquetage",url:"namespacemembers.html",children:[
+{text:"Tout",url:"namespacemembers.html"},
+{text:"Fonctions",url:"namespacemembers_func.html"}]}]},
 {text:"Classes",url:"annotated.html",children:[
-{text:"Class List",url:"annotated.html"},
-{text:"Class Index",url:"classes.html"},
-{text:"Class Hierarchy",url:"inherits.html"}]},
-{text:"Files",url:"files.html",children:[
-{text:"File List",url:"files.html"}]}]}
+{text:"Liste des classes",url:"annotated.html"},
+{text:"Index des classes",url:"classes.html"},
+{text:"Hiérarchie des classes",url:"inherits.html"},
+{text:"Membres de classe",url:"functions.html",children:[
+{text:"Tout",url:"functions.html",children:[
+{text:"_",url:"functions.html#index__5F"},
+{text:"a",url:"functions.html#index_a"},
+{text:"c",url:"functions.html#index_c"},
+{text:"d",url:"functions.html#index_d"},
+{text:"g",url:"functions.html#index_g"},
+{text:"i",url:"functions.html#index_i"},
+{text:"l",url:"functions.html#index_l"},
+{text:"m",url:"functions.html#index_m"},
+{text:"n",url:"functions.html#index_n"},
+{text:"s",url:"functions.html#index_s"},
+{text:"t",url:"functions.html#index_t"},
+{text:"u",url:"functions.html#index_u"},
+{text:"v",url:"functions.html#index_v"}]},
+{text:"Fonctions",url:"functions_func.html",children:[
+{text:"_",url:"functions_func.html#index__5F"},
+{text:"a",url:"functions_func.html#index_a"},
+{text:"c",url:"functions_func.html#index_c"},
+{text:"d",url:"functions_func.html#index_d"},
+{text:"g",url:"functions_func.html#index_g"},
+{text:"l",url:"functions_func.html#index_l"},
+{text:"n",url:"functions_func.html#index_n"},
+{text:"s",url:"functions_func.html#index_s"}]},
+{text:"Variables",url:"functions_vars.html"}]}]},
+{text:"Fichiers",url:"files.html",children:[
+{text:"Liste des fichiers",url:"files.html"}]}]}

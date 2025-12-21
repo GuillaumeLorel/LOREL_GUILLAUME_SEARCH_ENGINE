@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['technologie_0',['🛠️ Technologie',['../index.html#autotoc_md24',1,'']]]
+];

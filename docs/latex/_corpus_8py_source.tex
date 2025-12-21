@@ -1,0 +1,377 @@
+\doxysection{Corpus.\+py}
+\hypertarget{_corpus_8py_source}{}\label{_corpus_8py_source}\index{v3/models/Corpus.py@{v3/models/Corpus.py}}
+\mbox{\hyperlink{_corpus_8py}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00001}\mbox{\hyperlink{namespace_corpus}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00002}00002\ \textcolor{stringliteral}{\#\ Corpus.py}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00003}00003\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00004}00004\ \textcolor{stringliteral}{Module\ contenant\ la\ logique\ de\ gestion\ du\ corpus\ de\ documents.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00005}00005\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00006}00006\ \textcolor{stringliteral}{**Author:**\ LOREL\ Guillaume\ \ }}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00007}00007\ \textcolor{stringliteral}{**Version:**\ 3.0}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00008}00008\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00010}00010\ \textcolor{keyword}{import}\ pandas\ \textcolor{keyword}{as}\ pd}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00011}00011\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00012}00012\ \textcolor{keyword}{from}\ models.Author\ \textcolor{keyword}{import}\ Author}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00013}00013\ \textcolor{keyword}{from}\ collections\ \textcolor{keyword}{import}\ Counter}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00015}\mbox{\hyperlink{namespace_corpus_aff61e26027cc8d0dfb9a74627b5652bb}{00015}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespace_corpus_aff61e26027cc8d0dfb9a74627b5652bb}{singleton}}(cls):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00016}00016\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00017}00017\ \textcolor{stringliteral}{\ \ \ \ Décorateur\ pour\ implémenter\ le\ patron\ Singleton.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00018}00018\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00019}00019\ \textcolor{stringliteral}{\ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ \ \ -\/\ **cls**:\ La\ classe\ à\ décorer.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00021}00021\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00022}00022\ \textcolor{stringliteral}{\ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ \ \ -\/\ Une\ fonction\ wrapper\ retournant\ l'instance\ unique\ de\ la\ classe.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00025}00025\ \ \ \ \ instance\ =\ [\textcolor{keywordtype}{None}]}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{def\ }wrapper(*args,\ **kwargs):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ instance[0]\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ instance[0]\ =\ cls(*args,\ **kwargs)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ instance[0]}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00030}00030\ \ \ \ \ \textcolor{keywordflow}{return}\ wrapper}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00032}00032\ \textcolor{preprocessor}{@singleton}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00033}\mbox{\hyperlink{class_corpus_1_1_corpus}{00033}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_corpus_1_1_corpus}{Corpus}}:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00034}00034\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ \#\ Corpus}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00036}00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ Classe\ principale\ gérant\ la\ collection\ de\ documents\ et\ d'auteurs.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00038}00038\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ **Note:**\ Utilise\ le\ pattern\ Singleton.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00041}\mbox{\hyperlink{class_corpus_1_1_corpus_aca0f36011b139acac33d623d44edaadb}{00041}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_aca0f36011b139acac33d623d44edaadb}{\_\_init\_\_}}(self,\ nom="{}Corpus\ par\ défaut"{},\ documents=None,\ id\_document=0,\ authors=None):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Constructeur\ du\ Corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00044}00044\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **nom**:\ Nom\ du\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00047}00047\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **documents**:\ Dictionnaire\ initial\ des\ documents\ (optionnel).}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **id\_document**:\ Identifiant\ initial\ pour\ les\ documents\ (optionnel).}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00049}00049\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **authors**:\ Dictionnaire\ initial\ des\ auteurs\ (optionnel).}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00050}00050\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00051}\mbox{\hyperlink{class_corpus_1_1_corpus_a77d860085b2560ba1d4c3b79cd707f73}{00051}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a77d860085b2560ba1d4c3b79cd707f73}{nom}}\ =\ nom}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00052}\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{00052}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}\ =\ documents\ \textcolor{keywordflow}{if}\ documents\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ \{\}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00053}\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{00053}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{authors}}\ =\ authors\ \textcolor{keywordflow}{if}\ authors\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ \{\}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00054}\mbox{\hyperlink{class_corpus_1_1_corpus_ad10a4c70f9117783702c330961466541}{00054}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ad10a4c70f9117783702c330961466541}{id\_document}}\ =\ len(self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}})\ \textcolor{keywordflow}{if}\ documents\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ id\_document}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00055}\mbox{\hyperlink{class_corpus_1_1_corpus_a030b33a659cf081dbe4c6a540bc82ce2}{00055}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a030b33a659cf081dbe4c6a540bc82ce2}{\_full\_text}}\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00056}00056\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00057}\mbox{\hyperlink{class_corpus_1_1_corpus_a0bbb01bd8a17a15e87b179d56145011b}{00057}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a0bbb01bd8a17a15e87b179d56145011b}{get\_nom}}(self):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Accesseur\ pour\ le\ nom\ du\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00060}00060\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Le\ nom\ du\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a77d860085b2560ba1d4c3b79cd707f73}{nom}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00065}00065\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00066}\mbox{\hyperlink{class_corpus_1_1_corpus_aafae557b9491b92a24fe12976a7c736e}{00066}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_aafae557b9491b92a24fe12976a7c736e}{get\_documents}}(self):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00068}00068\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Accesseur\ pour\ les\ documents.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00069}00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Dictionnaire\ des\ documents.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00074}00074\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00075}\mbox{\hyperlink{class_corpus_1_1_corpus_af96319c5ace7906aaf8963161f549c6e}{00075}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_af96319c5ace7906aaf8963161f549c6e}{get\_id\_document}}(self):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Accesseur\ pour\ l'identifiant\ du\ document.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00078}00078\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ L'identifiant\ actuel\ pour\ les\ documents.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ad10a4c70f9117783702c330961466541}{id\_document}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00083}00083\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00084}\mbox{\hyperlink{class_corpus_1_1_corpus_a171a64238f8dfa77034395d97cef7dac}{00084}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a171a64238f8dfa77034395d97cef7dac}{get\_authors}}(self):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Accesseur\ pour\ les\ auteurs.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00087}00087\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00088}00088\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Dictionnaire\ des\ auteurs.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{authors}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00092}00092\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00093}\mbox{\hyperlink{class_corpus_1_1_corpus_a330243589d080893c45c1ba50f1d2687}{00093}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a330243589d080893c45c1ba50f1d2687}{add\_document}}(self,\ document):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00095}00095\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Ajoute\ un\ Document\ au\ corpus\ et\ met\ à\ jour\ l'objet\ Author\ correspondant.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00096}00096\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00097}00097\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00098}00098\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **document**:\ Instance\ de\ Document\ (ou\ classe\ fille)\ à\ ajouter.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00099}00099\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}[self.\mbox{\hyperlink{class_corpus_1_1_corpus_ad10a4c70f9117783702c330961466541}{id\_document}}]\ =\ document}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ad10a4c70f9117783702c330961466541}{id\_document}}\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ author\_name\ =\ document.get\_auteur()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ author\_name\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{authors}}:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{authors}}[author\_name]\ =\ \mbox{\hyperlink{class_author}{Author}}(author\_name,\ 0,\ [])\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{authors}}[author\_name].add(document)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00110}\mbox{\hyperlink{class_corpus_1_1_corpus_a587e93c0a155e5628862e4fab88710bb}{00110}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a587e93c0a155e5628862e4fab88710bb}{add\_author}}(self,\ author):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Ajoute\ manuellement\ un\ auteur\ au\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00113}00113\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **author**:\ Instance\ de\ Author\ à\ ajouter.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{authors}}[author.get\_nom()]\ =\ author}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00119}\mbox{\hyperlink{class_corpus_1_1_corpus_a2224c208981a1cb32aa11f8d1d4bc35d}{00119}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a2224c208981a1cb32aa11f8d1d4bc35d}{\_\_repr\_\_}}(self):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Représentation\ textuelle\ du\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00122}00122\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00124}00124\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Résumé\ du\ contenu\ du\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00125}00125\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ nb\_docs\ =\ len(self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ nb\_authors\ =\ len(self.\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{authors}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (f\textcolor{stringliteral}{"{}<Corpus(nom='\{self.get\_nom()\}',\ docs=\{nb\_docs\},\ "{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}auteurs=\{nb\_authors\},\ id\_max=\{self.id\_document\ -\/\ 1\ if\ self.id\_document\ >\ 0\ else\ -\/1\})>"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00130}00130\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00131}\mbox{\hyperlink{class_corpus_1_1_corpus_aca7cdac4250a056f7d1bd6cba5eaa45f}{00131}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_aca7cdac4250a056f7d1bd6cba5eaa45f}{get\_sorted\_by\_date}}(self,\ n=10):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Affiche\ les\ 'n'\ documents\ triés\ par\ date\ (récent\ -\/>\ ancien).}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00134}00134\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00135}00135\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **n**:\ Nombre\ de\ documents\ à\ afficher.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00137}00137\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ \{n\}\ documents\ les\ plus\ récents\ de\ \{self.nom\}\ -\/-\/-\/"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ sorted\_docs\ =\ sorted(}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}.values(),\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ key=\textcolor{keyword}{lambda}\ doc:\ doc.get\_date(),\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ reverse=\textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ )\ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ doc\ \textcolor{keywordflow}{in}\ enumerate(sorted\_docs[:n]):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}[\{i\ +\ 1\}]\ \{doc\}"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00147}\mbox{\hyperlink{class_corpus_1_1_corpus_a8004ea4b2b428ade610c5cad56e4a557}{00147}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a8004ea4b2b428ade610c5cad56e4a557}{get\_sorted\_by\_title}}(self,\ n=10):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00149}00149\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Affiche\ les\ 'n'\ documents\ triés\ par\ titre\ alphabétique.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00150}00150\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00151}00151\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **n**:\ Nombre\ de\ documents\ à\ afficher.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00153}00153\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ \{n\}\ documents\ triés\ par\ titre\ de\ \{self.nom\}\ -\/-\/-\/"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ sorted\_docs\ =\ sorted(}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}.values(),\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ key=\textcolor{keyword}{lambda}\ doc:\ doc.get\_titre().lower()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ )\ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ doc\ \textcolor{keywordflow}{in}\ enumerate(sorted\_docs[:n]):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}[\{i\ +\ 1\}]\ \{doc\}"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00162}\mbox{\hyperlink{class_corpus_1_1_corpus_ae9c5fde11482b7d01afab0dc2c2550fb}{00162}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_ae9c5fde11482b7d01afab0dc2c2550fb}{save}}(self,\ filename='corpus.csv'):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00164}00164\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Enregistre\ le\ corpus\ sur\ le\ disque\ au\ format\ CSV.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00165}00165\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00166}00166\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00167}00167\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **filename**:\ Nom\ du\ fichier\ de\ sauvegarde.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00168}00168\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ path\ =\ f\textcolor{stringliteral}{'./v3/data/\{filename\}'}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\(\backslash\)n-\/>\ Sauvegarde\ du\ corpus\ dans\ \{path\}..."{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ doc\_objects\ =\ list(self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}.values())}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ df\ =\ pd.DataFrame(\{}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ range(len(doc\_objects)),}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'titre'}:\ [d.get\_titre()\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ doc\_objects],}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'auteur'}:\ [d.get\_auteur()\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ doc\_objects],}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date'}:\ [d.get\_date()\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ doc\_objects],}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'url'}:\ [d.get\_url()\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ doc\_objects],}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'texte'}:\ [d.get\_texte()\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ doc\_objects],}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'type'}:\ [d.getType()\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ doc\_objects],}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nb\_comments'}:\ [getattr(d,\ \textcolor{stringliteral}{'nb\_comments'},\ 0)\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ doc\_objects],}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'co\_auteurs'}:\ [str(getattr(d,\ \textcolor{stringliteral}{'co\_auteurs'},\ []))\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ doc\_objects]\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ df.to\_csv(path,\ sep=\textcolor{stringliteral}{'\(\backslash\)t'},\ index=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Sauvegarde\ terminée."{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00189}\mbox{\hyperlink{class_corpus_1_1_corpus_aea285d5211a520e6be9cc3e9e316d9bf}{00189}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_aea285d5211a520e6be9cc3e9e316d9bf}{load}}(self,\ filename='corpus.csv',\ nom="{}Corpus\ Chargé"{}):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00191}00191\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Charge\ un\ corpus\ depuis\ un\ fichier\ CSV.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00192}00192\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00193}00193\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00194}00194\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **filename**:\ Nom\ du\ fichier\ à\ charger.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00195}00195\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **nom**:\ Nouveau\ nom\ pour\ le\ corpus\ chargé.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00196}00196\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ path\ =\ f\textcolor{stringliteral}{'./v3/data/\{filename\}'}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\(\backslash\)n-\/>\ Chargement\ du\ corpus\ depuis\ \{path\}..."{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ df\ =\ pd.read\_csv(path,\ sep=\textcolor{stringliteral}{'\(\backslash\)t'})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ FileNotFoundError:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Erreur\ :\ Fichier\ non\ trouvé."{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a77d860085b2560ba1d4c3b79cd707f73}{nom}}\ =\ nom}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ae5109291d50f9b170e2107b3ac5a4504}{authors}}\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ad10a4c70f9117783702c330961466541}{id\_document}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00211}\mbox{\hyperlink{class_corpus_1_1_corpus_af661c460bf7806bb71e5785d176d51e3}{00211}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_af661c460bf7806bb71e5785d176d51e3}{df\_data}}\ =\ df}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Chargement\ terminé.\ \{len(self.df\_data)\}\ lignes\ de\ données\ chargées."{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00214}00214\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00215}\mbox{\hyperlink{class_corpus_1_1_corpus_a37766967f6562b1142f7f1eaed220b1c}{00215}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a37766967f6562b1142f7f1eaed220b1c}{display\_types}}(self,\ n=10):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00217}00217\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Affiche\ les\ types\ des\ 'n'\ premiers\ documents\ du\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00218}00218\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00219}00219\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00220}00220\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **n**:\ Nombre\ de\ documents\ à\ afficher.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00221}00221\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ Types\ des\ documents\ dans\ le\ corpus\ '\{self.nom\}'\ -\/-\/-\/"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Affiche\ seulement\ les\ n\ premiers\ pour\ éviter\ de\ polluer\ la\ console}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ doc\_id,\ doc\ \textcolor{keywordflow}{in}\ list(self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}.items())[:n]:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}ID\ \{doc\_id\}:\ Type\ =\ \{doc.getType()\}"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00227}\mbox{\hyperlink{class_corpus_1_1_corpus_ad797b4f6efb0f9446f3e215811d6114d}{00227}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_ad797b4f6efb0f9446f3e215811d6114d}{search}}(self,\ keyword):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00229}00229\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Recherche\ un\ mot-\/clé\ dans\ le\ corpus\ et\ retourne\ les\ extraits\ correspondants.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00230}00230\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00231}00231\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00232}00232\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **keyword**:\ Mot-\/clé\ à\ rechercher.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00233}00233\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00234}00234\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00235}00235\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Liste\ des\ extraits\ contenant\ le\ mot-\/clé.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00236}00236\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a030b33a659cf081dbe4c6a540bc82ce2}{\_full\_text}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a58e17cdaa99cfc58a1046cb28a189137}{\_build\_full\_text}}()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ pattern\ =\ re.compile(\textcolor{stringliteral}{r"{}.\{0,40\}\(\backslash\)b"{}}\ +\ re.escape(keyword)\ +\ \textcolor{stringliteral}{r"{}\(\backslash\)b.\{0,40\}"{}},\ re.IGNORECASE)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pattern.findall(self.\mbox{\hyperlink{class_corpus_1_1_corpus_a030b33a659cf081dbe4c6a540bc82ce2}{\_full\_text}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00241}00241\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00242}\mbox{\hyperlink{class_corpus_1_1_corpus_a58e17cdaa99cfc58a1046cb28a189137}{00242}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a58e17cdaa99cfc58a1046cb28a189137}{\_build\_full\_text}}(self):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00244}00244\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Construit\ la\ chaîne\ de\ texte\ complète\ du\ corpus\ pour\ les\ recherches.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00245}00245\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a030b33a659cf081dbe4c6a540bc82ce2}{\_full\_text}}\ =\ \textcolor{stringliteral}{"{}\ "{}}.join(doc.get\_texte()\ \textcolor{keywordflow}{for}\ doc\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}.values())}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00248}\mbox{\hyperlink{class_corpus_1_1_corpus_a3d3ab05fc0714b6f4a59f23d0dc2ff3e}{00248}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a3d3ab05fc0714b6f4a59f23d0dc2ff3e}{concorde}}(self,\ pattern,\ context\_size=30):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00250}00250\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Génère\ une\ concordance\ pour\ un\ motif\ donné\ dans\ le\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00251}00251\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00252}00252\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00253}00253\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **pattern**:\ Motif\ (expression\ régulière)\ à\ rechercher.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00254}00254\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **context\_size**:\ Taille\ du\ contexte\ à\ extraire\ autour\ du\ motif.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00255}00255\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00256}00256\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00257}00257\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ DataFrame\ avec\ colonnes\ "{}contexte\ gauche"{},\ "{}motif\ trouvé"{},\ "{}contexte\ droit"{}.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00258}00258\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a030b33a659cf081dbe4c6a540bc82ce2}{\_full\_text}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a58e17cdaa99cfc58a1046cb28a189137}{\_build\_full\_text}}()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00261}00261\ \ \ \ \ \ \ \ \ text\ =\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a030b33a659cf081dbe4c6a540bc82ce2}{\_full\_text}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ matches\ =\ re.finditer(pattern,\ text,\ re.IGNORECASE)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ results\ =\ []}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ match\ \textcolor{keywordflow}{in}\ matches:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ start\_index\ =\ match.start()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ end\_index\ =\ match.end()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ motif\ =\ match.group()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Extraire\ le\ contexte\ gauche}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Début\ du\ contexte\ =\ max(0,\ start\_index\ -\/\ taille\ du\ contexte)}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ context\_gauche\_start\ =\ max(0,\ start\_index\ -\/\ context\_size)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ context\_gauche\ =\ text[context\_gauche\_start:start\_index].strip()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Extraire\ le\ contexte\ droit}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Fin\ du\ contexte\ =\ min(longueur\ totale,\ end\_index\ +\ taille\ du\ contexte)}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ context\_droit\_end\ =\ min(len(text),\ end\_index\ +\ context\_size)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ context\_droit\ =\ text[end\_index:context\_droit\_end].strip()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ results.append(\{}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}contexte\ gauche"{}}:\ context\_gauche,}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}motif\ trouvé"{}}:\ motif,}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}contexte\ droit"{}}:\ context\_droit}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ results:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Aucune\ occurrence\ du\ motif\ '\{pattern\}'\ trouvée."{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pd.DataFrame(columns=[\textcolor{stringliteral}{"{}contexte\ gauche"{}},\ \textcolor{stringliteral}{"{}motif\ trouvé"{}},\ \textcolor{stringliteral}{"{}contexte\ droit"{}}])}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ concordancier\ =\ pd.DataFrame(results)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ concordancier}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00294}00294\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00295}\mbox{\hyperlink{class_corpus_1_1_corpus_a3bda1c666c11287bd7b8a0313ca02448}{00295}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_a3bda1c666c11287bd7b8a0313ca02448}{nettoyer\_texte}}(self,\ text):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00297}00297\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Nettoie\ le\ texte\ en\ appliquant\ plusieurs\ transformations.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00298}00298\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00299}00299\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00300}00300\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **text**:\ Texte\ brut\ à\ nettoyer.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00301}00301\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00302}00302\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00303}00303\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ Texte\ nettoyé\ (minuscules,\ caractères\ non\ alphabétiques\ retirés,\ espaces\ normalisés).}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00304}00304\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00305}00305\ \ \ \ \ \ \ \ \ text\ =\ text.lower()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ text\ =\ text.replace(\textcolor{stringliteral}{'\(\backslash\)n'},\ \textcolor{stringliteral}{'\ '})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ [\string^a-\/z]\ signifie\ "{}tout\ ce\ qui\ n'est\ pas\ une\ lettre\ minuscule"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ text\ =\ re.sub(\textcolor{stringliteral}{r'[\string^a-\/z\(\backslash\)s]+'},\ \textcolor{stringliteral}{'\ '},\ text)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00312}00312\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Remplacement\ des\ espaces\ multiples\ par\ un\ seul\ espace}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ text\ =\ re.sub(\textcolor{stringliteral}{r'\(\backslash\)s+'},\ \textcolor{stringliteral}{'\ '},\ text).strip()}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ text}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00316}00316\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00317}\mbox{\hyperlink{class_corpus_1_1_corpus_afe8a1f59a899d760c26f1bb167bfd25a}{00317}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{class_corpus_1_1_corpus_afe8a1f59a899d760c26f1bb167bfd25a}{stats}}(self,\ n=10):}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00318}00318\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}!}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00319}00319\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Calcule\ et\ affiche\ des\ statistiques\ globales\ et\ textuelles\ du\ corpus.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00320}00320\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00321}00321\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Parameters**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00322}00322\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ **n**:\ Nombre\ de\ mots\ les\ plus\ fréquents\ à\ afficher.}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00323}00323\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00324}00324\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ **Returns**}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00325}00325\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ -\/\ DataFrame\ trié\ par\ fréquence\ décroissante\ (TF).}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00326}00326\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ Statistiques\ du\ corpus\ '\{self.nom\}'\ -\/-\/-\/"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00328}00328\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Nombre\ de\ documents:\ \{len(self.documents)\}"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00329}00329\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Nombre\ d'auteurs:\ \{len(self.authors)\}"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00330}00330\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}\(\backslash\)nStats\ textuelles\ :"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00331}00331\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Dictionnaire\ pour\ stocker\ les\ occurrences\ globales\ (Term\ Frequency)}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ word\_counts\ =\ \{\}\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Dictionnaire\ pour\ stocker\ les\ documents\ contenant\ chaque\ mot\ (Document\ Frequency)}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ doc\_word\_set\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ all\_words\ =\ []}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00340}00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ doc\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_ab9d40057964f72e7742929808e4ec38e}{documents}}.values():}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ text\_nettoye\ =\ self.\mbox{\hyperlink{class_corpus_1_1_corpus_a3bda1c666c11287bd7b8a0313ca02448}{nettoyer\_texte}}(doc.get\_texte())}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ mots\_du\_doc\ =\ text\_nettoye.split(\textcolor{stringliteral}{'\ '})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ mots\_uniques\_du\_doc\ =\ set(mots\_du\_doc)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ mot\ \textcolor{keywordflow}{in}\ mots\_uniques\_du\_doc:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ mot:}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ doc\_word\_set[mot]\ =\ doc\_word\_set.get(mot,\ 0)\ +\ 1}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Ajout\ des\ mots\ pour\ le\ calcul\ de\ la\ fréquence\ totale\ (TF)}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ all\_words.extend(mots\_du\_doc)}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00354}00354\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00355}00355\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Utilisation\ d'un\ dictionnaire\ pour\ compter\ la\ fréquence\ (plus\ rapide\ que\ boucler\ à\ la\ main)}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ word\_counts\ =\ Counter([word\ \textcolor{keywordflow}{for}\ word\ \textcolor{keywordflow}{in}\ all\_words\ \textcolor{keywordflow}{if}\ word])}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00357}00357\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ df\_freq\ =\ pd.DataFrame(word\_counts.items(),\ columns=[\textcolor{stringliteral}{'Mot'},\ \textcolor{stringliteral}{'Term\ Frequency\ (TF)'}])}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ df\_freq[\textcolor{stringliteral}{'Document\ Frequency\ (DF)'}]\ =\ df\_freq[\textcolor{stringliteral}{'Mot'}].apply(\textcolor{keyword}{lambda}\ mot:\ doc\_word\_set.get(mot,\ 0))}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00361}00361\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}1.\ Nombre\ de\ mots\ différents\ dans\ le\ corpus\ (Vocabulaire):\ \{len(word\_counts)\}\ mots."{}})\ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00363}00363\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00364}00364\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\(\backslash\)n2.\ \{n\}\ mots\ les\ plus\ fréquents\ (Term\ Frequency,\ TF)\ :"{}})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00365}00365\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00366}00366\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Tri\ par\ Term\ Frequency\ et\ affichage\ des\ n\ premiers}}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00367}00367\ \ \ \ \ \ \ \ \ df\_freq\_sorted\ =\ df\_freq.sort\_values(by=\textcolor{stringliteral}{'Term\ Frequency\ (TF)'},\ ascending=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00368}00368\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00369}00369\ \ \ \ \ \ \ \ \ print(df\_freq\_sorted.head(n))}
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00370}00370\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_corpus_8py_source_l00371}00371\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ df\_freq\_sorted}
+
+\end{DoxyCode}

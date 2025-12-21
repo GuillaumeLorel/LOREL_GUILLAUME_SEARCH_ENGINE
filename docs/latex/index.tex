@@ -1,0 +1,186 @@
+\chapter{Moteur de Recherche Python }
+\hypertarget{index}{}\label{index}\index{Moteur de Recherche Python@{Moteur de Recherche Python}}
+\label{index_md__r_e_a_d_m_e}%
+\Hypertarget{index_md__r_e_a_d_m_e}%
+
+
+Projet académique d\textquotesingle{}implémentation d\textquotesingle{}un moteur de recherche en Python pour le cours de Programmation de Spécialité (UE53) à l\textquotesingle{}Université Lyon 2.\hypertarget{index_autotoc_md10}{}\doxysection{\texorpdfstring{📋 Description du Projet}{📋 Description du Projet}}\label{index_autotoc_md10}
+Ce projet développe progressivement un moteur de recherche capable de \+:
+
+
+\begin{DoxyItemize}
+\item Indexer et rechercher des documents
+\item Gérer plusieurs sources de données (ar\+Xiv, Reddit, etc.)
+\item Optimiser les performances à travers les versions
+\item Fournir une interface interactive avec Jupyter
+\end{DoxyItemize}\hypertarget{index_autotoc_md11}{}\doxysection{\texorpdfstring{📂 Structure du Projet}{📂 Structure du Projet}}\label{index_autotoc_md11}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{├──\ v1/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Version\ 1\ :\ Implémentation\ initiale}
+\DoxyCodeLine{├──\ v2/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Version\ 2\ :\ Améliorations\ et\ optimisations}
+\DoxyCodeLine{├──\ v3/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Version\ 3\ :\ Intégration\ Jupyter}
+\DoxyCodeLine{├──\ docs/\ \ \ \ \ \ \ \ \ \ \ \ \#\ Documentation\ Doxygen}
+\DoxyCodeLine{├──\ Doxyfile\ \ \ \ \ \ \ \ \ \#\ Configuration\ Doxygen}
+\DoxyCodeLine{├──\ README.md\ \ \ \ \ \ \ \ \#\ Ce\ fichier}
+\DoxyCodeLine{└──\ .gitignore\ \ \ \ \ \ \ \#\ Configuration\ Git}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md12}{}\doxysubsection{\texorpdfstring{Versions}{Versions}}\label{index_autotoc_md12}
+{\bfseries{V1 -\/ Implémentation Basique}}
+
+
+\begin{DoxyItemize}
+\item Structure de base des classes (\doxylink{namespace_document}{Document}, \doxylink{namespace_corpus}{Corpus}, \doxylink{class_author}{Author})
+\item Indexation simple des documents
+\item Fonctions de recherche élémentaires
+\end{DoxyItemize}
+
+{\bfseries{V2 -\/ Optimisations}}
+
+
+\begin{DoxyItemize}
+\item Amélioration des performances
+\item Optimisation des structures de données
+\item Meilleure gestion des corpus volumineux
+\end{DoxyItemize}
+
+{\bfseries{V3 -\/ Interface Interactive}}
+
+
+\begin{DoxyItemize}
+\item Intégration avec Jupyter Notebook
+\item Interface interactive pour l\textquotesingle{}exploration
+\item Documentation complète du processus
+\end{DoxyItemize}\hypertarget{index_autotoc_md13}{}\doxysection{\texorpdfstring{🚀 Démarrage Rapide}{🚀 Démarrage Rapide}}\label{index_autotoc_md13}
+\hypertarget{index_autotoc_md14}{}\doxysubsection{\texorpdfstring{Prérequis}{Prérequis}}\label{index_autotoc_md14}
+
+\begin{DoxyItemize}
+\item Python 3.\+8+
+\item pip (gestionnaire de paquets)
+\item Jupyter Notebook (optionnel pour v3)
+\end{DoxyItemize}\hypertarget{index_autotoc_md15}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{index_autotoc_md15}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Cloner\ le\ projet}
+\DoxyCodeLine{git\ clone\ <url-\/repo>}
+\DoxyCodeLine{cd\ LOREL\_GUILLAUME\_SEARCH\_ENGINE}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Installer\ les\ dépendances}
+\DoxyCodeLine{pip\ install\ -\/r\ requirements.txt}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md16}{}\doxysubsection{\texorpdfstring{Exécution}{Exécution}}\label{index_autotoc_md16}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Version\ 1}
+\DoxyCodeLine{python\ v1/main.py}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Version\ 2}
+\DoxyCodeLine{python\ v2/main.py}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Version\ 3}
+\DoxyCodeLine{jupyter\ notebook\ v3/search\_engine.ipynb}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md17}{}\doxysection{\texorpdfstring{📖 Documentation}{📖 Documentation}}\label{index_autotoc_md17}
+La documentation API complète est disponible dans le dossier {\ttfamily docs/}\+:
+
+
+\begin{DoxyItemize}
+\item Générer la documentation \+: {\ttfamily doxygen Doxyfile}
+\item Consulter en ligne \+: {\ttfamily docs/html/index.\+html}
+\end{DoxyItemize}
+
+Les pages Git\+Hub déploient automatiquement la documentation.\hypertarget{index_autotoc_md18}{}\doxysection{\texorpdfstring{🏗️ Architecture}{🏗️ Architecture}}\label{index_autotoc_md18}
+\hypertarget{index_autotoc_md19}{}\doxysubsection{\texorpdfstring{Classes Principales}{Classes Principales}}\label{index_autotoc_md19}
+{\bfseries{\doxylink{namespace_document}{Document}}}
+
+
+\begin{DoxyItemize}
+\item Classe de base pour les documents
+\item Attributs \+: titre, contenu, URL, date
+\end{DoxyItemize}
+
+{\bfseries{\doxylink{namespace_corpus}{Corpus}}}
+
+
+\begin{DoxyItemize}
+\item Gère une collection de documents
+\item Indexation et recherche
+\end{DoxyItemize}
+
+{\bfseries{\doxylink{class_author}{Author}}}
+
+
+\begin{DoxyItemize}
+\item Information sur les auteurs
+\item Gestion des métadonnées
+\end{DoxyItemize}
+
+{\bfseries{Arxiv\+Document}} (V2+)
+
+
+\begin{DoxyItemize}
+\item Spécialisation pour articles ar\+Xiv
+\item Extraction des métadonnées ar\+Xiv
+\end{DoxyItemize}
+
+{\bfseries{Reddit\+Document}} (V2+)
+
+
+\begin{DoxyItemize}
+\item Spécialisation pour posts Reddit
+\item Gestion des discussions
+\end{DoxyItemize}\hypertarget{index_autotoc_md20}{}\doxysection{\texorpdfstring{🔍 Utilisation}{🔍 Utilisation}}\label{index_autotoc_md20}
+\hypertarget{index_autotoc_md21}{}\doxysubsection{\texorpdfstring{Exemple Basique}{Exemple Basique}}\label{index_autotoc_md21}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{from}\ v1.main\ \textcolor{keyword}{import}\ Corpus,\ Document}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ Créer\ un\ corpus}}
+\DoxyCodeLine{corpus\ =\ \mbox{\hyperlink{namespace_corpus}{Corpus}}()}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ Ajouter\ des\ documents}}
+\DoxyCodeLine{doc\ =\ \mbox{\hyperlink{namespace_document}{Document}}(\textcolor{stringliteral}{"{}Python"{}},\ \textcolor{stringliteral}{"{}Langage\ de\ programmation..."{}})}
+\DoxyCodeLine{corpus.add(doc)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ Rechercher}}
+\DoxyCodeLine{results\ =\ corpus.search(\textcolor{stringliteral}{"{}programmation"{}})}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md22}{}\doxysubsection{\texorpdfstring{Recherche Avancée (V2+)}{Recherche Avancée (V2+)}}\label{index_autotoc_md22}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\#\ Avec\ filtres}}
+\DoxyCodeLine{results\ =\ corpus.search(\textcolor{stringliteral}{"{}machine\ learning"{}},\ max\_results=10)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{\#\ Recherche\ avec\ pagination}}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ page\ \textcolor{keywordflow}{in}\ corpus.search\_paginated(\textcolor{stringliteral}{"{}deep\ learning"{}},\ page\_size=5):}
+\DoxyCodeLine{\ \ \ \ print(page)}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md23}{}\doxysection{\texorpdfstring{📊 Caractéristiques}{📊 Caractéristiques}}\label{index_autotoc_md23}
+
+\begin{DoxyItemize}
+\item ✅ Indexation efficace des documents
+\item ✅ Recherche multi-\/termes
+\item ✅ Support de plusieurs sources (ar\+Xiv, Reddit)
+\item ✅ Interface Jupyter interactive
+\item ✅ Documentation API complète
+\item ✅ Tests et validation
+\end{DoxyItemize}\hypertarget{index_autotoc_md24}{}\doxysection{\texorpdfstring{🛠️ Technologie}{🛠️ Technologie}}\label{index_autotoc_md24}
+
+\begin{DoxyItemize}
+\item {\bfseries{Langage}} \+: Python 3.\+8+
+\item {\bfseries{Documentation}} \+: Doxygen
+\item {\bfseries{Déploiement}} \+: Git\+Hub Pages
+\item {\bfseries{Notebooks}} \+: Jupyter
+\end{DoxyItemize}\hypertarget{index_autotoc_md25}{}\doxysection{\texorpdfstring{📝 Licence}{📝 Licence}}\label{index_autotoc_md25}
+Projet universitaire -\/ Université Lyon 2\hypertarget{index_autotoc_md26}{}\doxysection{\texorpdfstring{👤 Auteur}{👤 Auteur}}\label{index_autotoc_md26}
+Guillaume Lorel\hypertarget{index_autotoc_md27}{}\doxysection{\texorpdfstring{📞 Support}{📞 Support}}\label{index_autotoc_md27}
+Pour toute question, consultez la documentation ou les commentaires du code.
+
+\DoxyHorRuler{0}
+
+
+{\bfseries{Générée avec Doxygen}} \texorpdfstring{$\vert$}{|} \href{docs/html/index.html}{\texttt{Voir la documentation}} 

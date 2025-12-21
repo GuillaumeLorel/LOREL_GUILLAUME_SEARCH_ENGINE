@@ -1,0 +1,5 @@
+<map id="Corpus.Corpus.stats" name="Corpus.Corpus.stats">
+<area shape="rect" id="Node000001" title="Calcule et affiche des statistiques globales et textuelles du corpus." alt="" coords="5,13,148,40"/>
+<area shape="rect" id="Node000002" href="$class_corpus_1_1_corpus.html#a3bda1c666c11287bd7b8a0313ca02448" title="Nettoie le texte en appliquant plusieurs transformations." alt="" coords="196,5,356,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,24,183,26,177,27,148,29"/>
+</map>

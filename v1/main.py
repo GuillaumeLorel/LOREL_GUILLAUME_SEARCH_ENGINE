@@ -1,8 +1,14 @@
 """!
-@file main.py
-@brief Point d'entrée principal du programme de gestion de corpus.
-@author LOREL Guillaume
-@version 1.0
+# main.py
+
+Point d'entrée principal (v1) : constitution d'un corpus.
+
+**Author:** LOREL Guillaume  
+**Version:** 1.0
+
+Ce script:
+- récupère des documents depuis Reddit et Arxiv,
+- les ajoute dans un objet `Corpus`.
 """
 
 import urllib

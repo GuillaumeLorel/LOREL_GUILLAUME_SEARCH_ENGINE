@@ -1,2 +1,40 @@
-\doxysection{main Namespace Reference}
+\doxysection{Référence de l\textquotesingle{}espace de nommage main}
 \hypertarget{namespacemain}{}\label{namespacemain}\index{main@{main}}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemain_a3140e9a5b6a71ffbf498198cfc471b88}{main}} ()
+\begin{DoxyCompactList}\small\item\em Exécute le pipeline complet (collecte -\/\texorpdfstring{$>$}{>} corpus -\/\texorpdfstring{$>$}{>} indexation -\/\texorpdfstring{$>$}{>} recherche). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+\hypertarget{namespacemain_autotoc_md0}{}\doxysubsection{\texorpdfstring{main.\+py}{main.\+py}}\label{namespacemain_autotoc_md0}
+Point d\textquotesingle{}entrée principal (v3) \+: constitution d\textquotesingle{}un corpus et moteur de recherche.
+
+{\bfseries{\doxylink{class_author}{Author}\+:}} LOREL Guillaume ~\newline
+ {\bfseries{Version\+:}} 3.\+0
+
+Ce script\+:
+\begin{DoxyItemize}
+\item récupère des documents depuis Reddit et Arxiv,
+\item les ajoute dans un objet {\ttfamily \doxylink{namespace_corpus}{Corpus}},
+\item construit ensuite un {\ttfamily \doxylink{namespace_search_engine}{Search\+Engine}} (TF-\/\+IDF) pour effectuer des recherches. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{namespacemain_doc-func-members}
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{namespacemain_a3140e9a5b6a71ffbf498198cfc471b88}\index{main@{main}!main@{main}}
+\index{main@{main}!main@{main}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{namespacemain_a3140e9a5b6a71ffbf498198cfc471b88} 
+main.\+main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Exécute le pipeline complet (collecte -\/\texorpdfstring{$>$}{>} corpus -\/\texorpdfstring{$>$}{>} indexation -\/\texorpdfstring{$>$}{>} recherche). 
+
+Cette fonction orchestre la récupération des documents depuis Reddit et Arxiv, la construction du {\ttfamily \doxylink{namespace_corpus}{Corpus}}, puis l\textquotesingle{}initialisation et le test du {\ttfamily \doxylink{namespace_search_engine}{Search\+Engine}}. 
+
+Définition à la ligne \mbox{\hyperlink{main_8py_source_l00026}{26}} du fichier \mbox{\hyperlink{main_8py_source}{main.\+py}}.
+
