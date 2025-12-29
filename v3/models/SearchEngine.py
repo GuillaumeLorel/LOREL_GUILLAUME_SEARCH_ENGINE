@@ -175,13 +175,22 @@ class SearchEngine:
         for i in indices_tries[:n_results]:
             if scores[i] > 0:
                 doc_obj = docs[i]
+                nb_comments = getattr(doc_obj, 'nb_comments', 0)
+                co = getattr(doc_obj, 'co_auteurs', [])
+                if isinstance(co, (list, tuple)):
+                    co_str = ', '.join(str(c) for c in co)
+                else:
+                    co_str = str(co)
+
                 resultats.append({
                     "Document": doc_obj.get_titre(),
                     "Score": round(scores[i], 4),
                     "Auteur": doc_obj.get_auteur(),
                     "Date": doc_obj.get_date(),
                     "URL": doc_obj.get_url(),
-                    "Type": doc_obj.getType()
+                    "Type": doc_obj.getType(),
+                    "Nb_comments": nb_comments,
+                    "Co_auteurs": co_str
                 })
                 
         return pd.DataFrame(resultats)
