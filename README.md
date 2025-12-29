@@ -37,9 +37,11 @@ Le projet est conçu pour fonctionner sous **Python 3.10**.
   ```
 
 - **Version 3** (Interface Graphique) :
-  L'interface de recherche est implémentée via un Notebook Jupyter.
-  Lancer Jupyter et ouvrir le fichier :
-  `v3/search_engine.ipynb`
+  L'interface de recherche est implémentée via plusieurs notebooks Jupyter.
+  Vous pouvez lancer Jupyter et ouvrir l'un des notebooks suivants selon le jeu de données que vous souhaitez explorer :
+
+  - `v3/search_engine_us_speeches.ipynb` : conçu pour le corpus "US Speeches" (`v3/data/discours_US.csv`). Ce notebook découpe les textes en phrases, construit un `Corpus`, initialise le `SearchEngine` et fournit une interface interactive (widgets) pour effectuer des recherches et afficher les résultats.
+  - `v3/search_engine.ipynb` : utilise les données réelles de l'application (`v3/data/corpus_data.csv`). Il reconstruit les objets `RedditDocument` et `ArxivDocument`, indexe le corpus avec le `SearchEngine` et expose une interface interactive similaire pour interroger le corpus.
 
 ## Documentation
 
